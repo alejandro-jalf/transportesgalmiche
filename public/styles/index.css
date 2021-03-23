@@ -1,0 +1,63 @@
+.quines-somos, .mision, .vision {
+    padding: 15px;
+}
+.mision {
+    background: rgb(226, 226, 226);
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+.vision {
+    margin-top: 50px;
+}
+
+.ldqs {
+    display: inline-block;
+    width: 60%;
+    min-width: 350px;
+}
+
+.subtitle {
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+}
+
+.sqs {
+    /* padding-top: 10%; */
+    /* background: rgb(12, 231, 158); */
+    width: 100%;
+    text-align: center;
+    /* display: inline-block; */
+}
+
+.contenido {
+    font-family: 'Roboto';
+    text-align: justify;
+    font-size: 20px;
+}
+
+.cqs {
+    /* background: rgb(246, 71, 71); */
+    width: 100%;
+    padding: 10%;
+    padding-top: 2%;
+    /* display: inline-block; */
+}
+
+.img-qs {
+    width: 28%;
+}
+
+.flecha-carrusel {
+    background: rgba(0, 0, 0, 0.007);
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 5px #000;
+}
+.flecha-carrusel:hover {
+    background: rgba(0, 0, 0, 0.459);
+}
+
+.icon-flecha {
+    color: aqua;
+    /* background: #000; */
+    font-size: 100px;
+}

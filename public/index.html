@@ -3,78 +3,132 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-storage.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-analytics.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-remote-config.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-performance.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
+    <title>Transportes Galmiche</title>
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/main.css">
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <div class="nav-header">
+      <img src="./images/banner-tg.png" alt="" class="img-banner">
+      <nav class="nav nav-body">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Contacto</a>
+        </li>
+      </nav>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <div id="carouselExampleControls" class="carousel slide pt-5" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="quines-somos">
+            <div class="ldqs">
+              <div class="subtitle sqs">¿Quienes Somos?</div>
+              <div class="contenido cqs">
+                Somos una empresa Queretana en crecimiento dedicada al transporte de carga en general.
+              </div>
+            </div>
+            <img src="./images/imgref.jpeg" alt="" class="img-qs">
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="quines-somos">
+            <img src="./images/imgref.jpeg" alt="" class="img-qs">
+            <div class="ldqs">
+              <!-- <div class="subtitle sqs">Servicio de Calidad en tiempo y forma</div> -->
+              <div class="contenido cqs">
+                <ul>
+                  <li>Contamos con mas de 15 años de experiencia que nos respaldan.</li>
+                  <br>
+                  <li>Siempre comprometidos con nuestros clientes ofreciendo eficiencia en el transporte de su mercancía desde el arribo hasta su entrega.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="quines-somos">
+            <div class="ldqs">
+              <div class="subtitle sqs">Servicio de Calidad en tiempo y forma</div>
+              <div class="contenido cqs">
+                El objetivo principal en nuestros servicios es la calidad que inicia desde la solicitud hasta la entrega de carga a destino. Ofreciendo entera satisfacción en nuestros clientes. De esa forma buscamos competir y ser líderes en el mercado.
+              </div>
+            </div>
+            <img src="./images/imgref.jpeg" alt="" class="img-qs">
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev flecha-carrusel" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon icon-flecha" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next flecha-carrusel" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon icon-flecha" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
+    <div class="mision">
+      <img src="./images/imgref.jpeg" alt="" class="img-qs">
+      <div class="ldqs">
+        <div class="subtitle sqs">Misión</div>
+        <div class="contenido cqs">
+          Brindar un servicio de Transportes de calidad, basados en nuestra experiencia y compromiso, para que nuestros clientes tengan la confianza que su mercancia llegará en tiempo y forma a su destino.
+        </div>
+      </div>
+    </div>
+
+    <div class="vision">
+      <div class="ldqs">
+        <div class="subtitle sqs">Visión</div>
+        <div class="contenido cqs">
+          Ser una empresa de transporte lider en el mercado nacional, brindando soluciones y ofreciendo un servicio integral, comprometidos siempre con nuestros clientes y colaboradores.
+        </div>
+      </div>
+      <img src="./images/imgref.jpeg" alt="" class="img-qs">
+    </div>
+
+    
+    <!-- Footer -->
+    <footer class="page-footer font-small bg-dark text-white pt-4 mt-5">
+      <ul class="list-unstyled list-inline text-center">
+          <li class="list-inline-item" style="display: block;">
+              Contactos
+          </li>
+          <li class="list-inline-item">
+              <img src="./images/fb.png" alt="" width="30px">
+              <a class="btn-floating btn-fb mx-1 text-white" href="https://web.facebook.com/" target="_blank">
+                  Transportes Galmiche / Facebook
+              </a>
+          </li>
+          |
+          <li class="list-inline-item">
+              <img src="./images/what.png" alt="" width="30px">
+              <a class="text-white" href="https://wa.me/520000000000" target="_blank">+52 000-000-0000</a>
+          </li>
+          |
+          <li class="list-inline-item">
+              <img src="./images/tel.png" alt="" width="30px">
+              <a class="text-white" href="tel:+520000000000" target="_blank">+52 000-000-0000 / Llamadas</a>
+          </li>
+      </ul>
+      <hr>
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <a>Transportes Galmiche</a>
+      </div>
+  </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
