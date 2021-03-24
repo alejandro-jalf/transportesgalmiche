@@ -29,6 +29,18 @@
     left: 0px;
 }
 
+.img-logo {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    height: 60%;
+}
+
+.img-letras {
+    position: absolute;
+    width: 70%;
+}
+
 .nav-body {
     position: absolute;
     bottom: 0px;
