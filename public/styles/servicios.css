@@ -1,0 +1,153 @@
+.principal-servicios {
+    margin-top: 20px;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.servicio-item {
+    display: inline-block;
+    width: calc(30% - 3px);
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.title-servicio {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.img-servicio {
+    width: 90%;
+    border-radius: 10px;
+}
+
+.info-servicio {
+    color: rgb(0, 89, 255);
+    font-size: 19px;
+    text-decoration: underline;
+    text-align: left;
+    text-indent: 5%;
+    margin-top: 10px;
+}
+
+.cobertura {
+    background-image: url('../images/carretera.jpg');
+    background-size: 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+}
+
+.cobertura-izquierdo {
+    position: relative;
+    width: 40%;
+    text-align: center;
+    display: inline-block;
+}
+
+.img-cobertura {
+    width: 90%;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    border-radius: 10px;
+    border: 3px solid #fff;
+}
+
+.cobertura-derecho {
+    width: 59%;
+    display: inline-block;
+}
+
+.title-cobertura, .title-flotilla, .title-clientes {
+    color: #fff;
+    text-shadow: 0px 0px 2px 2px #fff;
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.item-cobertura {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.img-cobertura-item {
+    width: 150px;
+    float: left;
+    margin-right: 10px;
+}
+
+.flotilla {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.title-flotilla {
+    color: #000;
+    border-bottom: 1px solid rgb(131, 131, 131);
+    width: 90%;
+    margin-left: 5%;
+}
+
+.item-flotilla {
+    width: 30%;
+    padding: 2%;
+    margin: 1%;
+    display: inline-block;
+}
+
+.img-flotilla-item {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.at1 {
+    width: 49%;
+}
+
+.descripcion-flotilla {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.especificaciones-flotilla {
+    color: rgb(104, 104, 104);
+    margin-top: 2px;
+}
+
+.clientes {
+    background: rgb(1, 134, 127);
+    padding: 2%;
+}
+
+.title-clientes {
+    border-bottom: 1px solid rgb(241, 241, 241);
+    width: 90%;
+    margin-left: 5%;
+}
+
+.item-clientes {
+    padding: 10px;
+    width: 200px;
+    display: inline-block;
+    margin: 1%;
+    text-align: center;
+    border-radius: 5px;
+    width: 220px;
+}
+
+.img-cliente-item {
+    width: 90%;
+}
+
+.name-cliente {
+    margin-bottom: 10px;
+}

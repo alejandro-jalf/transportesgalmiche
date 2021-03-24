@@ -6,13 +6,18 @@
 }
 
 .nav-link {
-    background: rgb(0, 225, 255);
-    border-radius: 15px;
+    background: rgb(2, 123, 139);
+    color: rgb(255, 255, 255);
+}
+
+.active {
+    background: #fff;
     color: #000;
 }
+
 .nav-link:hover {
     background: rgb(1, 87, 87);
-    border-radius: 15px;
+    /* border-radius: 15px; */
     color: rgb(255, 255, 255);
 }
 
@@ -26,13 +31,13 @@
 
 .nav-body {
     position: absolute;
-    bottom: 30px;
+    bottom: 0px;
     right: 0px;
 }
 
 .nav-item {
-    margin-right: 15px;
-    border-radius: 15px;
+    margin-right: 0px;
+    border-radius: 0px;
     background: #fff;
 }
 
