@@ -12,6 +12,9 @@
     padding: 15px;
     cursor: pointer;
 }
+.servicio-item:hover {
+    background: rgb(245, 245, 245);
+}
 
 .title-servicio {
     font-size: 23px;
@@ -30,6 +33,9 @@
     text-align: left;
     text-indent: 5%;
     margin-top: 10px;
+}
+.info-servicio:hover {
+    color: rgb(1, 26, 71);
 }
 
 .cobertura {
@@ -106,10 +112,6 @@
 .img-flotilla-item {
     width: 100%;
     border-radius: 5px;
-}
-
-.at1 {
-    width: 49%;
 }
 
 .descripcion-flotilla {

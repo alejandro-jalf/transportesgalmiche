@@ -1,3 +1,18 @@
+.btnup {
+    position: fixed;
+    z-index: 6;
+    width: 50px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 100%;
+    border: 4px solid #fff;
+    cursor: pointer;
+}
+
+.btnup:hover {
+    border: 4px solid rgb(1, 44, 61);
+}
+
 .nav-header {
     height: 420px;
     background: rgb(0, 112, 177);
