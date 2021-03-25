@@ -8,21 +8,21 @@ window.addEventListener('load', function() {
     
     servicio_cobertura.addEventListener('click', function() {
         const mover = principalesServicios.clientHeight + 450;
-        window.scrollTo(0, mover);
+        $('body,html').animate({ scrollTop: mover + 'px' },500);
     });
     servicio_flotilla.addEventListener('click', function() {
         const mover = 
             principalesServicios.clientHeight +
             450 +
             cobertura.clientHeight;
-        window.scrollTo(0, mover);
+            $('body,html').animate({ scrollTop: mover + 'px' },500);
     });
     servicio_clientes.addEventListener('click', function() {
         const mover = principalesServicios.clientHeight +
         455 +
         cobertura.clientHeight +
         flotilla.clientHeight;
-        window.scrollTo(0, mover);
+        $('body,html').animate({ scrollTop: mover + 'px' },500);
     });
     
 });
