@@ -1,0 +1,146 @@
+.email {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 2%;
+    border-radius: 10px;
+    border: 1px solid rgb(0, 71, 68);
+    background-image: url('../images/carretera.jpg');
+    background-repeat: repeat-y;
+    background-size: 100%;
+    position: relative;
+}
+
+.email-fondo {
+    background: rgba(1, 134, 127, 0.575);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+
+.email-izq {
+    position: relative;
+    width: 30%;
+    display: inline-block;
+    padding: 20px 0px;
+    z-index: 1;
+    /* background: #ffff; */
+}
+
+.img-email {
+    /* position: absolute;
+    top: -350px; */
+    padding: 10% 0px;
+    width: 90%;
+    margin-left: 5%;
+    background: rgb(0, 0, 0);
+    border-radius: 100%;
+    border: 3px solid rgb(255, 255, 255);
+}
+
+.email-dir {
+    text-align: center;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* margin-top: 50px; */
+    /* margin-bottom: 50%; */
+}
+
+.email-der {
+    position: relative;
+    z-index: 1;
+    padding: 15px;
+    width: 69%;
+    display: inline-block;
+    /* background: rgb(192, 192, 192); */
+    border-left: 2px solid rgb(0, 251, 239);
+}
+
+.data-email {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    /* background: rgb(100, 50, 50); */
+}
+
+.namesInputs {
+    text-shadow: 1px 1px 3px rgb(0, 47, 45);
+}
+
+.btn-submit {
+    /* float: right; */
+    padding: 5px 15px;
+    background: rgb(30, 255, 0);
+    color: #000;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.btn-submit:hover {
+    background: rgb(0, 107, 102);
+    color: rgb(255, 255, 255);
+}
+
+.ubicacion {
+    /* background: #000; */
+    margin-bottom: 50px;
+}
+
+.ubicacio-title, .contactos-title {
+    font-family: 'pacifico', cursive;
+    font-size: 50px;
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    border-bottom: 1px solid rgb(0, 110, 101);
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+.ubicacion-frame {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.contactos {
+    /* background: rgb(143, 143, 143); */
+    text-align: center;
+}
+
+.contacto-tarjeta {
+    width: 350px;
+    margin: 5px;
+    padding: 15px;
+    display: inline-block;
+    text-align: center;
+    background: rgb(245, 245, 245);
+}
+
+.contacto-img {
+    width: 80%;
+    /* margin-left: 10%; */
+    margin: 2% 0px;
+    border-radius: 100%;
+}
+
+.contacto-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.contacto-cargo {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.contacto-phone {
+    margin-top: 10px;
+}
+
+.img-tel-con {
+    width: 30px;
+}
