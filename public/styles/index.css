@@ -22,11 +22,8 @@
 }
 
 .sqs {
-    /* padding-top: 10%; */
-    /* background: rgb(12, 231, 158); */
     width: 100%;
     text-align: center;
-    /* display: inline-block; */
 }
 
 .contenido {
@@ -36,14 +33,13 @@
 }
 
 .cqs {
-    /* background: rgb(246, 71, 71); */
     width: 100%;
     padding: 10%;
     padding-top: 2%;
-    /* display: inline-block; */
 }
 
 .img-qs {
+    display: inline-block;
     width: 28%;
 }
 
@@ -58,6 +54,50 @@
 
 .icon-flecha {
     color: aqua;
-    /* background: #000; */
     font-size: 100px;
+}
+
+@media screen and (max-width: 900px) {
+    .ldqs {
+        width: 50%;
+    }
+    .img-qs {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .subtitle {
+        font-size: 35px;
+    }
+    .contenido {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 724px) {
+    .img-qs {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 674px) {
+    .quines-somos, .vision, .mision {
+        text-align: center;
+    }
+    .img-qs {
+        width: 70%;
+    }
+    .ldqs {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .subtitle {
+        font-size: 25px;
+    }
+    .contenido {
+        font-size: 15px;
+    }
 }
