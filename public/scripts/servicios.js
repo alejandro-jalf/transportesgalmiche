@@ -5,21 +5,22 @@ window.addEventListener('load', function() {
     const principalesServicios = document.querySelector('.principal-servicios');
     const cobertura = document.querySelector('.cobertura');
     const flotilla = document.querySelector('.flotilla');
+    const navHeader = document.querySelector('.nav-header');
     
     servicio_cobertura.addEventListener('click', function() {
-        const mover = principalesServicios.clientHeight + 450;
+        const mover = principalesServicios.clientHeight + navHeader.clientHeight;
         $('body,html').animate({ scrollTop: mover + 'px' },500);
     });
     servicio_flotilla.addEventListener('click', function() {
         const mover = 
             principalesServicios.clientHeight +
-            450 +
+            navHeader.clientHeight +
             cobertura.clientHeight;
             $('body,html').animate({ scrollTop: mover + 'px' },500);
     });
     servicio_clientes.addEventListener('click', function() {
         const mover = principalesServicios.clientHeight +
-        455 +
+        navHeader.clientHeight +
         cobertura.clientHeight +
         flotilla.clientHeight;
         $('body,html').animate({ scrollTop: mover + 'px' },500);

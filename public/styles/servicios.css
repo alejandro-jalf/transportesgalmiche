@@ -128,6 +128,7 @@
 .clientes {
     background: rgb(1, 134, 127);
     padding: 2%;
+    text-align: center;
 }
 
 .title-clientes {
@@ -152,4 +153,131 @@
 
 .name-cliente {
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 790px) {
+    .descripcion-flotilla {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 765px) {
+    .title-servicio {
+        font-size: 20px;
+    }
+    .info-servicio {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .item-clientes {
+        width: 150px;
+    }
+    .name-cliente {
+        font-size: 10px;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .title-servicio {
+        font-size: 18px;
+    }
+    .info-servicio {
+        font-size: 15px;
+    }
+    .cobertura-izquierdo {
+        display: none;
+    }
+    .cobertura {
+        text-align: center;
+    }
+    .cobertura-derecho {
+        width: 95%;
+        text-align: justify;
+    }
+}
+
+@media screen and (max-width: 673px) {
+    .item-flotilla {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 624px) {
+    .title-servicio {
+        font-size: 15px;
+    }
+    .info-servicio {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 539px) {
+    .title-servicio {
+        font-size: 13px;
+    }
+    .info-servicio {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 484px) {
+    .title-servicio {
+        font-size: 11px;
+    }
+    .info-servicio {
+        font-size: 10px;
+    }
+    .img-cobertura-item {
+        width: 120px;
+    }
+    .descripcion-item-cob {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 427px) {
+    .title-servicio {
+        font-size: 22px;
+        position: absolute;
+        width: 94%;
+        text-align: left;
+        padding-left: 110px;
+    }
+    .info-servicio {
+        font-size: 15px;
+        position: absolute;
+        right: 15px;
+        width: 200px;
+        bottom: 20px;
+        text-align: right;
+    }
+    .servicio-item {
+        width: calc(90% - 3px);
+        margin-bottom: 1%;
+    }
+    .img-servicio {
+        float: left;
+        width: 100px;
+    }
+    .descripcion-flotilla {
+        font-size: 15px;
+    }
+    .especificaciones-flotilla {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 377px) {
+    .descripcion-flotilla {
+        font-size: 13px;
+    }
+    .especificaciones-flotilla {
+        font-size: 12px;
+    }
+    .descripcion-item-cob {
+        font-size: 13px;
+    }
 }
