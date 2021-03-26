@@ -7,6 +7,7 @@
     border-radius: 100%;
     border: 4px solid #fff;
     cursor: pointer;
+    display: none;
 }
 
 .btnup:hover {
@@ -70,4 +71,45 @@
 
 .nav-item:hover {
     background: rgba(255, 255, 255, 0.561);
+}
+
+@media screen and (max-width: 1000px) {
+    .img-letras {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .nav-header {
+        height: 350px;
+    }
+    .img-letras {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .nav-header {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .nav-header {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .nav-header {
+        height: 200px;
+    }
+    .img-logo {
+        left: 15px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .img-logo {
+        left: 5px;
+    }
 }
