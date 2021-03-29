@@ -31,12 +31,9 @@
     display: inline-block;
     padding: 20px 0px;
     z-index: 1;
-    /* background: #ffff; */
 }
 
 .img-email {
-    /* position: absolute;
-    top: -350px; */
     padding: 10% 0px;
     width: 90%;
     margin-left: 5%;
@@ -54,8 +51,6 @@
     width: 100%;
     /* background: rgb(112, 112, 112); */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* margin-top: 50px; */
-    /* margin-bottom: 50%; */
 }
 
 .email-der {
@@ -64,14 +59,12 @@
     padding: 15px;
     width: 69%;
     display: inline-block;
-    /* background: rgb(192, 192, 192); */
     border-right: 2px solid rgb(0, 251, 239);
 }
 
 .data-email {
     width: 100%;
     color: rgb(255, 255, 255);
-    /* background: rgb(100, 50, 50); */
 }
 
 .namesInputs {
@@ -79,7 +72,6 @@
 }
 
 .btn-submit {
-    /* float: right; */
     padding: 5px 15px;
     background: rgb(30, 255, 0);
     color: #000;
@@ -92,7 +84,6 @@
 }
 
 .ubicacion {
-    /* background: #000; */
     margin-bottom: 50px;
 }
 
@@ -113,7 +104,6 @@
 }
 
 .contactos {
-    /* background: rgb(143, 143, 143); */
     text-align: center;
 }
 
@@ -128,7 +118,6 @@
 
 .contacto-img {
     width: 80%;
-    /* margin-left: 10%; */
     margin: 2% 0px;
     border-radius: 100%;
 }
@@ -165,8 +154,79 @@
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .ubicacion-frame {
+        width: 80%;
+        margin-left: 10%;
+    }
+}
+
 @media screen and (max-width: 790px) {
     .email-dir {
-        right: 150px;
+        right: 250px;
+    }
+    .img-email {
+        margin-top: 150px;
+    }
+}
+
+@media screen and (max-width: 725px) {
+    .contacto-tarjeta {
+        width: 300px;
+        padding: 10px;
+    }
+    .contacto-name {
+        font-size: 18px;
+    }
+    .contacto-cargo {
+        font-size: 15px;
+    }
+    .contacto-email {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .ubicacio-title, .contactos-title {
+        font-size: 40px;
+    }
+    .email-izq {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+    .email-der{
+        width: 100%;
+        border-right: 0px solid rgb(0, 251, 239);
+        border-top: 2px solid rgb(0, 251, 239);
+    }
+    .email-dir {
+        position: relative;
+        left: 0px;
+    }
+    .img-email {
+        width: 150px;
+        margin-top: 10px;
+        margin-left: 5%;
+        padding: 17px 0px;
+    }
+    .ubicacion-frame {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .email-dir {
+        font-size: 17px;
+    }
+    .ubicacio-title, .contactos-title {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 457px) {
+    .email-dir {
+        font-size: 15px;
     }
 }
