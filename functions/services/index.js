@@ -38,7 +38,7 @@ const services = (() => {
         try {
             const info = await transporter.sendMail({
                 from: '"Pagina Oficial" <transportesgalmiche.servicio>',
-                to: "alexlofa45@gmail.com", // "atencionalcliente@transportesgalmiche.com",
+                to: "atencionalcliente@transportesgalmiche.com",
                 subject: "Solicitud de informacion",
                 html: `
                 <h1>Se enviado una solicitud de informacion de cliente</h1>
