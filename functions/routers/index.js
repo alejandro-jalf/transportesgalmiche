@@ -9,8 +9,9 @@ router.route("/v1/firebaseconfig").get(async (req, res) => {
     res.status(status).json(response);
 });
 
-router.route("/v1/sendMail").get(async (req, res) => {
-    const { status, response } = await sendMail();
+router.route("/v1/sendMail").post(async (req, res) => {
+    const { body } = req;
+    const { status, response } = await sendMail(body);
     res.status(status).json(response);
 });
 
