@@ -9,9 +9,14 @@
         <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="../styles/main.css">
         <link rel="stylesheet" href="../styles/contactos.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <img src="../images/arrow up.png" alt="" class="btnup">
+
+        <div class="modal-dialog-centered" id="loading">
+            <img src="../images/loader3.gif" alt="">
+        </div>
 
         <div class="nav-header">
             <img src="../images/fondo 24-03-2021.png" alt="" class="img-banner">
@@ -54,7 +59,7 @@
                     <label for="cuerpoEmail" class="namesInputs">Cuerpo del mensaje:</label>
                     <textarea id="cuerpoEmail" class="form-control" name="" rows="5" placeholder="Contenido de su mensaje"></textarea>
                 </div>
-                <button class="btn btn-primary btn-submit" type="button">Enviar</button>
+                <button class="btn btn-outline-light" type="button" id="btnSendMail">Enviar</button>
             </div>
         </div>
 
@@ -105,10 +110,30 @@
         </div>
     </footer>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <div class="modal fade" id="modalAdvertencia" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header bg-warning text-white" id="headerModal">
+                <h5 class="modal-title" id="textHeaderModal">Advertencia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="contentModal">advertencia</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="../scripts/main.js"></script>
+        <script src="../scripts/contacto.js"></script>
     </body>
 </html>
