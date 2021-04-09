@@ -49,8 +49,12 @@
 
 .nav-link:hover {
     background: rgb(1, 87, 87);
-    /* border-radius: 15px; */
     color: rgb(255, 255, 255);
+}
+
+.active:hover {
+    background: #fff;
+    color: #000;
 }
 
 .img-banner {
@@ -124,8 +128,27 @@
         left: 15px;
     }
 }
+
 @media screen and (max-width: 400px) {
     .img-logo {
         left: 5px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .nav-link {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .nav-link {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 307px) {
+    .nav-link {
+        font-size: 9px;
     }
 }
