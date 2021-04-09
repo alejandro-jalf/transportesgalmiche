@@ -38,7 +38,7 @@
 }
 
 .nav-link {
-    background: rgb(2, 123, 139);
+    background: rgba(2, 123, 139, 0.493);
     color: rgb(255, 255, 255);
 }
 
@@ -48,7 +48,7 @@
 }
 
 .nav-link:hover {
-    background: rgb(1, 87, 87);
+    background: rgba(1, 87, 87, 0.849);
     color: rgb(255, 255, 255);
 }
 
@@ -86,7 +86,7 @@
 .nav-item {
     margin-right: 0px;
     border-radius: 0px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0);
 }
 
 .nav-item:hover {
@@ -138,6 +138,16 @@
 @media screen and (max-width: 390px) {
     .nav-link {
         font-size: small;
+    }
+    .nav-item {
+        text-align: center;
+        width: 22%;
+    }
+    .nav-oferta {
+        width: 34%;
+    }
+    .nav-body {
+        width: 100%;
     }
 }
 
