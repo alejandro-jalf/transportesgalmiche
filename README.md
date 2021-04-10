@@ -43,6 +43,7 @@ La base de datos que se esta incorporando es la proporcionada por firebase "fire
 - tipo_user
 - access_to_user
 - recovery_code_user
+- activo_user
 
 **Vacantes**
 
