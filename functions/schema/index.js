@@ -1,17 +1,11 @@
-const joi = require('joi');
+const vacantes = require('./Vacantes');
+const general = require('./General');
+const usuarios = require('./Usuarios');
 
-const schemas = (() => {
-    
-    const schemaEmail = joi.object({
-        name: joi.string().min(1).required(),
-        phone: joi.string(). required(),
-        email: joi.string().min(1).required(),
-        body: joi.string().min(1).required()
-    });
-
-    return {
-        schemaEmail
-    }
-})();
+const schemas = {
+    ...vacantes,
+    ...general,
+    ...usuarios,
+};
 
 module.exports = schemas;

@@ -1,18 +1,7 @@
 const router = require("express").Router();
-const {
-    sendMail,
-    getDataConfigFirebase,
-} = require("../services");
 
-router.route("/v1/firebaseconfig").get(async (req, res) => {
-    const { status, response } = await getDataConfigFirebase();
-    res.status(status).json(response);
-});
-
-router.route("/v1/sendMail").post(async (req, res) => {
-    const { body } = req;
-    const { status, response } = await sendMail(body);
-    res.status(status).json(response);
-});
+router.use(require('./General'));
+router.use(require('./Usuarios'));
+router.use(require('./Vacantes'));
 
 module.exports = router;

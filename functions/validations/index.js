@@ -1,18 +1,11 @@
-const { schemaEmail } = require('../schema');
-const { createContentAssert, createContentError } = require('../utils');
+const vacantes = require('./Vacantes');
+const general = require('./General');
+const usuarios = require('./Usuarios');
 
-const validations = (() => {
-    const validateBodyEmail = (bodyEmail) => {
-        let resultValidate = schemaEmail.validate(bodyEmail);
-        if( resultValidate.error) {
-            return createContentError('Datos del correo no fueron enviados', resultValidate.error.details);
-        }
-        return createContentAssert('Validacion correcta');
-    }
-
-    return {
-        validateBodyEmail,
-    }
-})();
+const validations = {
+    ...vacantes,
+    ...general,
+    ...usuarios,
+};
 
 module.exports = validations;

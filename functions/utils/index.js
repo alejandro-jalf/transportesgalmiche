@@ -1,3 +1,5 @@
+const { password, user } = require('../configs');
+const  mail = require("nodemailer");
 
 const utils = (() => {
     const _arrayMonths = [
@@ -85,6 +87,37 @@ const utils = (() => {
         }
     }
 
+    const configureNameEmail = (email) => {
+        return email.replace(/\./g, " ");
+    }
+
+    const sendEmail = async (to, subject, content) => {
+        const transporter = mail.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user,
+                pass: password,
+            },
+        });
+
+        try {
+            const info = await transporter.sendMail({
+                from: '"Pagina Oficial" <transportesgalmiche.servicio>',
+                to,
+                subject,
+                html: content
+            });
+            
+            console.log('Al fina de la respuesta', info);
+            return createContentAssert('Correo enviado');
+        } catch (error) {
+            console.log(error);
+            return createContentError('Error al enviar el correo', error);
+        }
+    }
+
     return {
         createContentAssert,
         createContentError,
@@ -92,6 +125,8 @@ const utils = (() => {
         getFechaActual,
         getHoraActual,
         completeDataForDate,
+        configureNameEmail,
+        sendEmail,
     }
 })();
 
