@@ -1,5 +1,6 @@
 const { password, user } = require('../configs');
 const  mail = require("nodemailer");
+const sha1 = require("sha1");
 
 const utils = (() => {
     const _arrayMonths = [
@@ -117,6 +118,10 @@ const utils = (() => {
             return createContentError('Error al enviar el correo', error);
         }
     }
+    
+    const encriptData = (message) => {
+        return sha1(message);
+    }
 
     return {
         createContentAssert,
@@ -127,6 +132,7 @@ const utils = (() => {
         completeDataForDate,
         configureNameEmail,
         sendEmail,
+        encriptData,
     }
 })();
 
