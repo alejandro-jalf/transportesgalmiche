@@ -7,8 +7,6 @@ window.addEventListener('load', function() {
     const dondeotro = document.querySelector("#dondeotro");
 
     const setInputOther = () => {
-        console.log(dondeotro.checked);
-
         if (dondeotro.checked) {
             $("#otroInput").show(300);
         } else {
