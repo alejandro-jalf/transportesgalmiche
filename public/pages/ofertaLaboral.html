@@ -43,6 +43,155 @@
             <img src="../images/not_vacancy.jpg" alt="" width="100%">
         </div>
 
+        <div class="card" style="width: 90%; margin-left: 5%;">
+            <div class="card-body">
+                <h3 class="card-title">Vacante disponible</h3>
+
+                <div class="form-group">
+                    <label for="puesto">Puesto solicitado</label>
+                    <select id="puesto" class="form-control" name="">
+                        <option>Seleccione el puesto disponible...</option>
+                        <option>Operador de torton</option>
+                        <option>Operador de 3.5 Ton.</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4 inputs-name">
+                        <label for="inputNombre">Nombre(s)</label>
+                        <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre(s)">
+                    </div>
+                    <div class="form-group col-md-4 inputs-name">
+                        <label for="inputAPaterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="inputAPaterno" placeholder="Ingrese su apellido paterno">
+                    </div>
+                    <div class="form-group col-md-4 inputs-name">
+                        <label for="inputAMaterno">Apellido Materno</label>
+                        <input type="text" class="form-control" id="inputAMaterno" placeholder="Ingrese su apellido materno">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputFNacimiento">Fecha de nacimiento</label>
+                    <input id="inputFNacimiento" class="form-control" type="date" name="">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPhone">Telefono de contacto</label>
+                    <input id="inputPhone" class="form-control" type="tel" name="" placeholder="000 000 0000">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail">Correo electronico</label>
+                    <input id="inputEmail" class="form-control" type="email" name="" placeholder="alguien@dominio.subdominio">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputDir">Direccion</label>
+                    <input id="inputDir" class="form-control" type="text" name="" placeholder="Calle">
+                    <small id="emailHelp" class="form-text text-muted mb-2">*Calle</small>
+                    <input id="inputDir1" class="form-control" type="text" name="" placeholder="Colonia">
+                    <small id="emailHelp" class="form-text text-muted mb-2">*Colonia</small>
+                    <input id="inputDir2" class="form-control" type="text" name="" placeholder="Ciudad">
+                    <small id="emailHelp" class="form-text text-muted mb-2">*Ciudad</small>
+                    <input id="inputDir3" class="form-control" type="text" name="" placeholder="Estado">
+                    <small id="emailHelp" class="form-text text-muted mb-2">*Estado</small>
+                </div>
+
+                <div class="form-group mb-1">
+                    <label for="dondeLabel">¿Como te enteraste de la vacante?</label>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondeface" class="custom-control-input" type="radio" name="checkdonde" value="Face">
+                        <label for="dondeface" class="custom-control-label ml-3">Facebook</label>
+                    </div>
+
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondepagina" class="custom-control-input" type="radio" name="checkdonde" value="En esta pagina">
+                        <label for="dondepagina" class="custom-control-label ml-3">En esta pagina</label>
+                    </div>
+
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondeinstagram" class="custom-control-input" type="radio" name="checkdonde" value="Instagram">
+                        <label for="dondeinstagram" class="custom-control-label ml-3">Instagram</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondeamigo" class="custom-control-input" type="radio" name="checkdonde" value="Un amigo">
+                        <label for="dondeamigo" class="custom-control-label ml-3">Un amigo</label>
+                    </div>
+
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondepublicidad" class="custom-control-input" type="radio" name="checkdonde" value="Publicidad pegada">
+                        <label for="dondepublicidad" class="custom-control-label ml-3">Publicidad pegada</label>
+                    </div>
+
+                    <div class="form-check col-md-4 custom-checkbox">
+                        <input id="dondeotro" class="custom-control-input" type="radio" name="checkdonde" value="Otro">
+                        <label for="dondeotro" class="custom-control-label ml-3">Otro</label>
+                    </div>
+                </div>
+
+                <div class="input-group mt-2" id="otroInput">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="my-addon">Otro</span>
+                    </div>
+                    <input class="form-control" type="text" name="" placeholder="Especifique" aria-label="Especifique" aria-describedby="my-addon">
+                </div>
+
+                <p class="mt-4">Subir curriculum (*opcional)</p>
+                <div class="custom-file">
+                    <input id="inputCurriculum" class="custom-file-input" type="file" name="">
+                    <label for="inputCurriculum" class="custom-file-label">Elejir archivo</label>
+                </div>
+
+                <h4 class="mt-4 mb-0">Referencias</h4>
+                <div class="mb-2" style="width: 100%; display: block; height: 1px; background: rgb(167, 167, 167);"></div>
+                <p class="text-muted">Puede agregar dos referencias laborales o personales</p>
+
+                <h6 class="">Referencia 1</h6>
+
+                <div class="form-group">
+                    <label for="inputref1name">Nombre completo</label>
+                    <input id="inputref1name" class="form-control" type="text" name="" placeholder="Nombre y apellidos">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputref1telefono">Numero telefonico</label>
+                    <input id="inputref1telefono" class="form-control" type="text" name="" placeholder="000-000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="inputref1tiempo">Años de conocerse</label>
+                    <input id="inputref1tiempo" class="form-control" type="number" name="" min="0" value="0">
+                </div>
+
+                <h6 class="">Referencia 2</h6>
+
+                <div class="form-group">
+                    <label for="inputref2name">Nombre completo</label>
+                    <input id="inputref2name" class="form-control" type="text" name="" placeholder="Nombre y apellidos">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputref2telefono">Numero telefonico</label>
+                    <input id="inputref2telefono" class="form-control" type="text" name="" placeholder="000-000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="inputref2tiempo">Años de conocerse</label>
+                    <input id="inputref2tiempo" class="form-control" type="number" name="" min="0" value="0">
+                </div>
+
+                <button class="btn btn-success float-right" type="button">
+                    <img src="../images/icon_Airplane.png" alt="" width="40px">
+                    Enviar mi postulacion
+                </button>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="page-footer font-small bg-dark text-white pt-4 mt-5">
         <ul class="list-unstyled list-inline text-center">
@@ -91,6 +240,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="../scripts/main.js"></script>
-        <!-- <script src="../scripts/contacto.js"></script> -->
+        <script src="../scripts/ofertaLaboral.js"></script>
     </body>
 </html>
