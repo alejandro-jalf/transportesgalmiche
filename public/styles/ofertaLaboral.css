@@ -1,0 +1,15 @@
+#spanFillForm {
+    font-size: 25px;
+}
+
+@media screen and (max-width: 767px) {
+    .card-title, .alert-heading {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 538px) {
+    .alert-heading {
+        font-size: 19px;
+    }
+}

@@ -8,7 +8,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="../styles/main.css">
-        <link rel="stylesheet" href="../styles/contactos.css">
+        <link rel="stylesheet" href="../styles/ofertaLaboral.css">
+        <link rel="stylesheet" href="../styles/icofont/icofont.min.css">
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -55,104 +56,125 @@
                         <option>Operador de 3.5 Ton.</option>
                     </select>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-4 inputs-name">
-                        <label for="inputNombre">Nombre(s)</label>
-                        <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre(s)">
+
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Requisito y/o habilidades para el puesto de: Operador de torton de 3.5 Ton.</h4>
+                    <div class="form-group">
+                        <textarea id="my-textarea" class="form-control" name="" rows="8">
+* Contar con licencia federal vigente
+* Experiencia en unidad de 3.5 Toneladas
+* Radicar en queretaro
+                        </textarea>
                     </div>
-                    <div class="form-group col-md-4 inputs-name">
-                        <label for="inputAPaterno">Apellido Paterno</label>
-                        <input type="text" class="form-control" id="inputAPaterno" placeholder="Ingrese su apellido paterno">
-                    </div>
-                    <div class="form-group col-md-4 inputs-name">
-                        <label for="inputAMaterno">Apellido Materno</label>
-                        <input type="text" class="form-control" id="inputAMaterno" placeholder="Ingrese su apellido materno">
-                    </div>
+                    <hr>
+                    <p class="mb-0">Si cumples con los requisitos y tienes las habilidades necesarias rellena el siguiente formulario y envianos tu postulacion, nosotros nos pondremos en contacto contigo</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="inputFNacimiento">Fecha de nacimiento</label>
-                    <input id="inputFNacimiento" class="form-control" type="date" name="">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputPhone">Telefono de contacto</label>
-                    <input id="inputPhone" class="form-control" type="tel" name="" placeholder="000 000 0000">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputEmail">Correo electronico</label>
-                    <input id="inputEmail" class="form-control" type="email" name="" placeholder="alguien@dominio.subdominio">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputDir">Direccion</label>
-                    <input id="inputDir" class="form-control" type="text" name="" placeholder="Calle">
-                    <small id="emailHelp" class="form-text text-muted mb-2">*Calle</small>
-                    <input id="inputDir1" class="form-control" type="text" name="" placeholder="Colonia">
-                    <small id="emailHelp" class="form-text text-muted mb-2">*Colonia</small>
-                    <input id="inputDir2" class="form-control" type="text" name="" placeholder="Ciudad">
-                    <small id="emailHelp" class="form-text text-muted mb-2">*Ciudad</small>
-                    <input id="inputDir3" class="form-control" type="text" name="" placeholder="Estado">
-                    <small id="emailHelp" class="form-text text-muted mb-2">*Estado</small>
-                </div>
-
-                <div class="form-group mb-1">
-                    <label for="dondeLabel">¿Como te enteraste de la vacante?</label>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondeface" class="custom-control-input" type="radio" name="checkdonde" value="Face">
-                        <label for="dondeface" class="custom-control-label ml-3">Facebook</label>
-                    </div>
-
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondepagina" class="custom-control-input" type="radio" name="checkdonde" value="En esta pagina">
-                        <label for="dondepagina" class="custom-control-label ml-3">En esta pagina</label>
-                    </div>
-
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondeinstagram" class="custom-control-input" type="radio" name="checkdonde" value="Instagram">
-                        <label for="dondeinstagram" class="custom-control-label ml-3">Instagram</label>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondeamigo" class="custom-control-input" type="radio" name="checkdonde" value="Un amigo">
-                        <label for="dondeamigo" class="custom-control-label ml-3">Un amigo</label>
-                    </div>
-
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondepublicidad" class="custom-control-input" type="radio" name="checkdonde" value="Publicidad pegada">
-                        <label for="dondepublicidad" class="custom-control-label ml-3">Publicidad pegada</label>
-                    </div>
-
-                    <div class="form-check col-md-4 custom-checkbox">
-                        <input id="dondeotro" class="custom-control-input" type="radio" name="checkdonde" value="Otro">
-                        <label for="dondeotro" class="custom-control-label ml-3">Otro</label>
-                    </div>
-                </div>
-
-                <div class="input-group mt-2" id="otroInput">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="my-addon">Otro</span>
-                    </div>
-                    <input class="form-control" type="text" name="" placeholder="Especifique" aria-label="Especifique" aria-describedby="my-addon">
-                </div>
-
-                <p class="mt-4">Subir curriculum (*opcional)</p>
-                <div class="custom-file">
-                    <input id="inputCurriculum" class="custom-file-input" type="file" name="">
-                    <label for="inputCurriculum" class="custom-file-label">Elejir archivo</label>
-                </div>
-
-                <button class="btn btn-success float-right mt-4" type="button">
-                    <img src="../images/icon_Airplane.png" alt="" width="40px">
-                    Enviar mi postulacion
+                <button class="btn btn-primary" id="btn-show-form" type="button" data-target="#formulario" data-toggle="collapse" aria-expanded="false" aria-controls="formulario">
+                    <span class="icofont-tasks" id="spanFillForm"></span>
+                    <span id="contentFillBtn">Rellenar formulario</span>
                 </button>
+
+                <div id="formulario" class="collapse mt-4">
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 inputs-name">
+                            <label for="inputNombre">Nombre(s)</label>
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre(s)">
+                        </div>
+                        <div class="form-group col-md-4 inputs-name">
+                            <label for="inputAPaterno">Apellido Paterno</label>
+                            <input type="text" class="form-control" id="inputAPaterno" placeholder="Ingrese su apellido paterno">
+                        </div>
+                        <div class="form-group col-md-4 inputs-name">
+                            <label for="inputAMaterno">Apellido Materno</label>
+                            <input type="text" class="form-control" id="inputAMaterno" placeholder="Ingrese su apellido materno">
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="inputFNacimiento">Fecha de nacimiento</label>
+                        <input id="inputFNacimiento" class="form-control" type="date" name="">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="inputPhone">Telefono de contacto</label>
+                        <input id="inputPhone" class="form-control" type="tel" name="" placeholder="000 000 0000">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="inputEmail">Correo electronico</label>
+                        <input id="inputEmail" class="form-control" type="email" name="" placeholder="alguien@dominio.subdominio">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="inputDir">Direccion</label>
+                        <input id="inputDir" class="form-control" type="text" name="" placeholder="Calle">
+                        <small id="emailHelp" class="form-text text-muted mb-2">*Calle</small>
+                        <input id="inputDir1" class="form-control" type="text" name="" placeholder="Colonia">
+                        <small id="emailHelp" class="form-text text-muted mb-2">*Colonia</small>
+                        <input id="inputDir2" class="form-control" type="text" name="" placeholder="Ciudad">
+                        <small id="emailHelp" class="form-text text-muted mb-2">*Ciudad</small>
+                        <input id="inputDir3" class="form-control" type="text" name="" placeholder="Estado">
+                        <small id="emailHelp" class="form-text text-muted mb-2">*Estado</small>
+                    </div>
+    
+                    <div class="form-group mb-1">
+                        <label for="dondeLabel">¿Como te enteraste de la vacante?</label>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondeface" class="custom-control-input" type="radio" name="checkdonde" value="Face">
+                            <label for="dondeface" class="custom-control-label ml-3">Facebook</label>
+                        </div>
+    
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondepagina" class="custom-control-input" type="radio" name="checkdonde" value="En esta pagina">
+                            <label for="dondepagina" class="custom-control-label ml-3">En esta pagina</label>
+                        </div>
+    
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondeinstagram" class="custom-control-input" type="radio" name="checkdonde" value="Instagram">
+                            <label for="dondeinstagram" class="custom-control-label ml-3">Instagram</label>
+                        </div>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondeamigo" class="custom-control-input" type="radio" name="checkdonde" value="Un amigo">
+                            <label for="dondeamigo" class="custom-control-label ml-3">Un amigo</label>
+                        </div>
+    
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondepublicidad" class="custom-control-input" type="radio" name="checkdonde" value="Publicidad pegada">
+                            <label for="dondepublicidad" class="custom-control-label ml-3">Publicidad pegada</label>
+                        </div>
+    
+                        <div class="form-check col-md-4 custom-checkbox">
+                            <input id="dondeotro" class="custom-control-input" type="radio" name="checkdonde" value="Otro">
+                            <label for="dondeotro" class="custom-control-label ml-3">Otro</label>
+                        </div>
+                    </div>
+    
+                    <div class="input-group mt-2" id="otroInput">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="my-addon">Otro</span>
+                        </div>
+                        <input class="form-control" type="text" name="" placeholder="Especifique" aria-label="Especifique" aria-describedby="my-addon">
+                    </div>
+    
+                    <p class="mt-4">Subir curriculum (*opcional)</p>
+                    <div class="custom-file">
+                        <input id="inputCurriculum" class="custom-file-input" type="file" name="">
+                        <label for="inputCurriculum" class="custom-file-label">Elejir archivo</label>
+                    </div>
+    
+                    <button class="btn btn-success float-right mt-4" type="button">
+                        <img src="../images/icon_Airplane.png" alt="" width="40px">
+                        Enviar mi postulacion
+                    </button>
+                </div>
             </div>
         </div>
 
