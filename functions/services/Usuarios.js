@@ -5,6 +5,7 @@ const {
     validateBodyUpdateUser,
     validateBodyEmail,
     validateBodyUpdatePassword,
+    validateBodyUpdateStatus,
 } = require("../validations");
 const {
     createUser,
@@ -55,6 +56,8 @@ const Usuarios = (() => {
         }
 
         bodyUsuarios.password_user = encriptData(bodyUsuarios.password_user);
+        bodyUsuarios.recovery_code_user = 'empty';
+        bodyUsuarios.activo_user = true;
         const response = await createUser(correo_user, bodyUsuarios);
 
         if(!response.success) return createResponse(500, response);
@@ -101,31 +104,57 @@ const Usuarios = (() => {
     }
 
     const updateUsuario = async (correo_user, bodyUsuarios) => {
-        // Validar que tambien el correo se cambie
         const resultValidate = validateBodyUpdateUser(bodyUsuarios);
         if (!resultValidate.success) {
             return createResponse(400, resultValidate);
         }
 
-        correo_user = configureNameEmail(correo_user);
-        const existUser = await getUserById(correo_user);
-        if (existUser.message === "Error al consultar la base de datos") {
-            return createResponse(500, existUser);
-        }
+        if (correo_user !== bodyUsuarios.correo_user) {
+            const existUser = await verifyExistUserById(correo_user, bodyUsuarios.correo_user);
+            if (existUser.message === "Error al consultar la base de datos") {
+                return createResponse(500, existUser);
+            }
+            
+            if (!existUser.success) {
+                return createResponse(200, existUser);
+            }
+            
 
-        if (!existUser.success) {
-            return createResponse(200, existUser);
+            correo_user = configureNameEmail(correo_user);
+            const newEmail = bodyUsuarios.new_correo_user;
+            bodyUsuarios = existUser.data;
+            bodyUsuarios.correo_user = newEmail;
+
+            const responseDelete = await deleteUser(correo_user);
+            if(!responseDelete.success) return createResponse(500, responseDelete);
+
+            correo_user = configureNameEmail(bodyUsuarios.correo_user);
+            const responseCreate = await createUser(correo_user, bodyUsuarios);
+            if(!responseCreate.success) return createResponse(500, responseCreate);
+
+            responseCreate.message = "Datos actualizados con exito";
+            return createResponse(200, responseCreate);
+        } else {
+            correo_user = configureNameEmail(correo_user);
+            const existUser = await getUserById(correo_user);
+            if (existUser.message === "Error al consultar la base de datos") {
+                return createResponse(500, existUser);
+            }
+
+            if (!existUser.success) {
+                return createResponse(200, existUser);
+            }
+
+            bodyUsuarios['correo_user'] = existUser.data.correo_user;
+            bodyUsuarios['password_user'] = existUser.data.password_user;
+            bodyUsuarios['activo_user'] = existUser.data.activo_user;
+            bodyUsuarios['recovery_code_user'] = existUser.data.recovery_code_user;
+            const response = await updateUser(correo_user, bodyUsuarios);
+            
+            if(!response.success) return createResponse(500, response);
+            
+            return createResponse(200, response);
         }
-        
-        bodyUsuarios['correo_user'] = existUser.data.correo_user;
-        bodyUsuarios['password_user'] = existUser.data.password_user;
-        bodyUsuarios['activo_user'] = existUser.data.activo_user;
-        bodyUsuarios['recovery_code_user'] = existUser.data.activo_user;
-        const response = await updateUser(correo_user, bodyUsuarios);
-        
-        if(!response.success) return createResponse(500, response);
-        
-        return createResponse(200, response);
     }
 
     const updateCorreo = async (correo_user, bodyCorreo) => {
@@ -215,8 +244,6 @@ const Usuarios = (() => {
     }
 
     const recuperaPassword = async (correo_user) => {
-        // Verificar el envio de correo 
-        const userReceived = correo_user;
         correo_user = configureNameEmail(correo_user);
         const existUser = await getUserById(correo_user);
         if (existUser.message === "Error al consultar la base de datos") {
@@ -232,21 +259,28 @@ const Usuarios = (() => {
         for (i=0; i<8; i++) codigo +=caracteres.charAt(Math.floor(Math.random()*caracteres.length)); 
         console.log(codigo)
 
+        const dataUser = existUser.data;
+        dataUser.recovery_code_user = codigo;
+
+        let response = await updateUser(configureNameEmail(correo_user), dataUser);
+        
+        if(!response.success) return createResponse(500, response);
+
         const content = `
         <h1>Se esta recuperando tu cuenta</h1>
-        <h3>Estamos trabajando para recuperar tu cuenta</h2>
-        <p>Para poder recuperar tu cuenta es necesario que vayas a la pagina oficial de trasnportes galmiche e ingreses al apartado de iniciar sesion, tendras que colocar tu correo electronico y en el apartado de contraseña deberas escribir el codigo de seguridad que se te esta proporcionado a continuacion:</p> <br>
+        <h3>Estamos trabajando para recuperar tu cuenta</h3>
+        <p>Para poder recuperar tu cuenta es necesario que vayas a la pagina oficial de trasnportes galmiche e ingreses al apartado de iniciar sesion, tendras que colocar tu correo electronico como lo haces normalmente cuando inicias sesion y en el apartado de contraseña deberas escribir el codigo de seguridad que se te esta proporcionado a continuacion:</p> <br>
         <b>Codigo de seguridad: </b> ${codigo} <br>
         <p>Posteriormente cuando ya hayas iniciado sesion es importante que cambies tu contraseña por una que sea facil de recordar para ti y que sea dificil de decifrar para los demas, es importante recordar que tu nueva contraseña debe ser mayor de 6 caracteres y debe contener por lo menos una letra y un numero</p>
         `;
 
-        const response = await sendEmail(correo_user, 'Codigo de seguridad', content);
+        response = await sendEmail(correo_user, 'Codigo de seguridad', content);
 
         return createResponse(200, response);
     }
 
     const updateActivo = async (correo_user, bodyActivo) => {
-        const resultValidate = validateUpdateActivo(bodyActivo);
+        const resultValidate = validateBodyUpdateStatus(bodyActivo);
         if (!resultValidate.success) {
             return createResponse(400, resultValidate);
         }
@@ -274,8 +308,10 @@ const Usuarios = (() => {
         const response = await updateUser(correo_user, bodyActivo);
         
         if(!response.success) return createResponse(500, response);
+
+        const tipo_activo = newActivoUser ? 'Activo' : 'Inactivo';
         
-        response.message = "Se a cambiado el estatus del usuario a: " + newActivoUser;
+        response.message = "Se a cambiado el estatus del usuario a: " + tipo_activo;
         return createResponse(200, response);
     }
 
@@ -306,6 +342,8 @@ const Usuarios = (() => {
         updateCorreo,
         updateContra,
         recuperaPassword,
+        updateActivo,
+        deleteUsuario,
     }
 
 })();
