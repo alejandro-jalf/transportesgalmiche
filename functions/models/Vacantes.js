@@ -1,8 +1,81 @@
-const { createContentAssert, createContentError, configureNameEmail  } = require("../utils");
+const {
+    createContentAssert,
+    createContentError,
+    configureNameEmail,
+    getFechaActual,
+    getHoraActual,
+} = require("../utils");
 
 const vacantes = (() => {
-    return {
 
+    const getAllVacantes = async () => {
+        try {
+            const document = admin.firestore().collection("transportes").doc("Vacantes");
+            const response = await document.get();
+            const data = response.data();
+
+            if (Object.values(data).length === 0) {
+                return createContentError("No hay Vacantes registradas", data);
+            }
+
+            return createContentAssert("Lista de Vacantes", data);
+        } catch (error) {
+            console.log(error);
+            return createContentError("Error al consultar la base de datos", error);
+        }
+    }
+
+    const createVacante = async (puesto_vacante, bodyVacantes) => {
+        try {
+            const vacante = {};
+            vacante[`${puesto_vacante}`] = bodyVacantes;
+            const doc = admin.firestore().collection("transportes").doc("Vacantes");
+            const writeResult = await doc.set(vacante, { merge: true });
+
+            return createContentAssert(`Se ha creado la vacante para el puesto de: ${bodyVacantes.puesto_vacante}`, writeResult);
+        } catch (error) {
+            console.log(error);
+            return createContentError("Error al crear el usuario", error);
+        }
+    }
+
+    const updateVacante = async (puesto_vacante, bodyVacantes) => {
+        try {
+            const document = admin.firestore().collection("transportes").doc("Vacantes");
+
+            const vacanteUpdate = {};
+            vacanteUpdate[`${puesto_vacante}`] = bodyVacantes;
+
+            const resultUpdate = await document.update(vacanteUpdate);
+
+            return createContentAssert("Datos de la vacante actualizados", resultUpdate);
+        } catch (error) {
+            console.log(error);
+            return createContentError("Error al actualizar el usuario", error);
+        }
+    }
+    
+    const deleteUser = async (puesto_vacante) => {
+        try {
+            const FieldValue = admin.firestore.FieldValue;
+            const document = admin.firestore().collection("transportes").doc("Vacantes");
+        
+            const del = {};
+            del[`${puesto_vacante}`] = FieldValue.delete();
+            const resultDelete = await document.update(del);
+        
+            return createContentAssert("Vacante eliminada", resultDelete);
+        } catch (error) {
+            console.log(error);
+            return createContentError("Error al eliminar el usuario", error);
+        }
+    }
+
+    return {
+        getAllVacantes,
+        createVacante,
+        updateVacante,
+        deleteUser,
     }
 })();
 
