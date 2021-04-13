@@ -1,4 +1,10 @@
-const { createContentAssert, createContentError, configureNameEmail  } = require("../utils");
+const {
+    createContentAssert,
+    createContentError,
+    configureNameEmail,
+    getFechaActual,
+    getHoraActual,
+} = require("../utils");
 
 const usuarios = (() => {
 

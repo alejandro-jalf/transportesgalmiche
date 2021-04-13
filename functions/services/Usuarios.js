@@ -122,8 +122,11 @@ const Usuarios = (() => {
 
             correo_user = configureNameEmail(correo_user);
             const newEmail = bodyUsuarios.new_correo_user;
-            bodyUsuarios = existUser.data;
             bodyUsuarios.correo_user = newEmail;
+
+            bodyUsuarios['password_user'] = existUser.data.password_user;
+            bodyUsuarios['activo_user'] = existUser.data.activo_user;
+            bodyUsuarios['recovery_code_user'] = existUser.data.recovery_code_user;
 
             const responseDelete = await deleteUser(correo_user);
             if(!responseDelete.success) return createResponse(500, responseDelete);
@@ -268,7 +271,6 @@ const Usuarios = (() => {
 
         const content = `
         <h1>Se esta recuperando tu cuenta</h1>
-        <h3>Estamos trabajando para recuperar tu cuenta</h3>
         <p>Para poder recuperar tu cuenta es necesario que vayas a la pagina oficial de trasnportes galmiche e ingreses al apartado de iniciar sesion, tendras que colocar tu correo electronico como lo haces normalmente cuando inicias sesion y en el apartado de contraseña deberas escribir el codigo de seguridad que se te esta proporcionado a continuacion:</p> <br>
         <b>Codigo de seguridad: </b> ${codigo} <br>
         <p>Posteriormente cuando ya hayas iniciado sesion es importante que cambies tu contraseña por una que sea facil de recordar para ti y que sea dificil de decifrar para los demas, es importante recordar que tu nueva contraseña debe ser mayor de 6 caracteres y debe contener por lo menos una letra y un numero</p>

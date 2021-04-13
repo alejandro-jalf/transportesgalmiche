@@ -105,7 +105,7 @@ const utils = (() => {
 
         try {
             const info = await transporter.sendMail({
-                from: '"Pagina Oficial" <transportesgalmiche.servicio>',
+                from: '"Pagina Oficial" <transportesgalmiche.servicio@gmail.com>',
                 to,
                 subject,
                 html: content
