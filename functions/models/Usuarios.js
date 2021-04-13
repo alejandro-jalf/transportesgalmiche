@@ -2,8 +2,6 @@ const {
     createContentAssert,
     createContentError,
     configureNameEmail,
-    getFechaActual,
-    getHoraActual,
 } = require("../utils");
 
 const usuarios = (() => {
@@ -25,7 +23,7 @@ const usuarios = (() => {
         }
     }
     
-    const getUserById = async (id_user) => {
+    const getUserById = async (correo_user) => {
         try {
             const document = admin.firestore().collection("transportes").doc("Usuarios");
             const response = await document.get();
@@ -35,9 +33,9 @@ const usuarios = (() => {
                 return createContentError("No hay usuarios registrados");
             }
 
-            const userFinded = data[`${id_user}`];
+            const userFinded = data[`${correo_user}`];
             if (!userFinded) {
-                return createContentError(`El usuario ${id_user} no esta registrado`)
+                return createContentError(`El usuario ${correo_user} no esta registrado`)
             }
 
             return createContentAssert("Usuario localizado", userFinded);
@@ -47,7 +45,7 @@ const usuarios = (() => {
         }
     }
     
-    const verifyExistUserById = async (id_user, newIdUSer) => {
+    const verifyExistUserById = async (correo_user, newIdUSer) => {
         try {
             const document = admin.firestore().collection("transportes").doc("Usuarios");
             const response = await document.get();
@@ -57,9 +55,9 @@ const usuarios = (() => {
                 return createContentError("No hay usuarios registrados");
             }
 
-            const userFindedThis = data[`${configureNameEmail(id_user)}`];
+            const userFindedThis = data[`${configureNameEmail(correo_user)}`];
             if (!userFindedThis) {
-                return createContentError(`El usuario ${id_user} no esta registrado`);
+                return createContentError(`El usuario ${correo_user} no esta registrado`);
             }
 
             const userFinded = data[`${configureNameEmail(newIdUSer)}`];
@@ -75,26 +73,26 @@ const usuarios = (() => {
         }
     }
     
-    const createUser = async (id_user, bodyUsuarios) => {
+    const createUser = async (correo_user, bodyUsuarios) => {
         try {
             const user = {};
-            user[`${id_user}`] = bodyUsuarios;
+            user[`${correo_user}`] = bodyUsuarios;
             const doc = admin.firestore().collection("transportes").doc("Usuarios");
             const writeResult = await doc.set(user, { merge: true });
 
-            return createContentAssert(`El usuario ${bodyUsuarios.id_user} ha sido creado`, writeResult);
+            return createContentAssert(`El usuario ${bodyUsuarios.correo_user} ha sido creado`, writeResult);
         } catch (error) {
             console.log(error);
             return createContentError("Error al crear el usuario", error);
         }
     }
 
-    const updateUser = async (id_user, bodyUsuarios) => {
+    const updateUser = async (correo_user, bodyUsuarios) => {
         try {
             const document = admin.firestore().collection("transportes").doc("Usuarios");
 
             const userUpdate = {};
-            userUpdate[`${id_user}`] = bodyUsuarios;
+            userUpdate[`${correo_user}`] = bodyUsuarios;
 
             const resultUpdate = await document.update(userUpdate);
 
@@ -105,13 +103,13 @@ const usuarios = (() => {
         }
     }
     
-    const deleteUser = async (id_user) => {
+    const deleteUser = async (correo_user) => {
         try {
             const FieldValue = admin.firestore.FieldValue;
             const document = admin.firestore().collection("transportes").doc("Usuarios");
         
             const del = {};
-            del[`${id_user}`] = FieldValue.delete();
+            del[`${correo_user}`] = FieldValue.delete();
             const resultDelete = await document.update(del);
         
             return createContentAssert("Usuario eliminado", resultDelete);
