@@ -25,6 +25,28 @@ const vacantes = (() => {
         }
     }
 
+    const getVacanteByName = async (puesto_vacante) => {
+        try {
+            const document = admin.firestore().collection("transportes").doc("Vacantes");
+            const response = await document.get();
+            const data = response.data();
+
+            if (Object.values(data).length === 0) {
+                return createContentError("No hay puestos registrados");
+            }
+
+            const vacanteFinded = data[`${puesto_vacante}`];
+            if (!vacanteFinded) {
+                return createContentError(`La vacante ${puesto_vacante} no esta registrado`)
+            }
+
+            return createContentAssert("vacante localizada", vacanteFinded);
+        } catch (error) {
+            console.log(error);
+            return createContentError("Error al consultar la base de datos", error);
+        }
+    }
+
     const createVacante = async (puesto_vacante, bodyVacantes) => {
         try {
             const vacante = {};
@@ -73,6 +95,7 @@ const vacantes = (() => {
 
     return {
         getAllVacantes,
+        getVacanteByName,
         createVacante,
         updateVacante,
         deleteUser,

@@ -22,7 +22,7 @@ const Usuarios = (() => {
     const getAllUsuarios = async () => {
         const result = await getAllUsers();
 
-        if (result.message !== 'No hay usuarios registrados') {
+        if (result.message === 'Error al consultar la base de datos') {
             return createResponse(500, result);
         }
 
