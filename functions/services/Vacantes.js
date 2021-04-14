@@ -27,7 +27,7 @@ const Vacantes = (() => {
         return createResponse(200, result);
     }
 
-    const createVacante = async (bodyVacantes) => {
+    const createVacancy = async (bodyVacantes) => {
         const resultValidate = validateBodyVacante(bodyVacantes);
         if (!resultValidate.success) {
             return createResponse(400, resultValidate);
@@ -110,7 +110,7 @@ const Vacantes = (() => {
         return createResponse(200, response);
     }
 
-    const deleteVacancy = async () => {
+    const deleteVacancy = async (puesto_vacante) => {
         puesto_vacante = configureNameEmail(puesto_vacante);
         const existVacante = await getVacanteByName(puesto_vacante);
         if (existVacante.message === "Error al consultar la base de datos") {
@@ -130,7 +130,7 @@ const Vacantes = (() => {
 
     return {
         getAllVacancies,
-        createVacante,
+        createVacancy,
         updateAvailableVacancy,
         updateVacancy,
         deleteVacancy,
