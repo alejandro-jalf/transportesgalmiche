@@ -39,6 +39,7 @@
 }
 
 .cobertura {
+    position: relative;
     background-image: url('../images/carretera.jpg');
     background-size: 100%;
     background-repeat: repeat-y;
@@ -46,23 +47,25 @@
 }
 
 .cobertura-izquierdo {
-    position: relative;
+    top: 0px;
+    left: 0px;
+    position: absolute;
     width: 40%;
     text-align: center;
     display: inline-block;
 }
 
 .img-cobertura {
+    max-width: 500px;
     width: 90%;
-    position: absolute;
-    bottom: -70px;
-    left: 5%;
+    margin-top: 70px;
     border-radius: 10px;
     border: 3px solid #fff;
 }
 
 .cobertura-derecho {
     width: 59%;
+    margin-left: 40%;
     display: inline-block;
 }
 
@@ -114,6 +117,14 @@
     border-radius: 5px;
 }
 
+.division-flotilla {
+    display: block;
+    margin-left: 5%;
+    width: 90%;
+    background: rgb(1, 134, 127);
+    height: 1px;
+}
+
 .descripcion-flotilla {
     font-size: 20px;
     font-weight: bold;
@@ -155,9 +166,24 @@
     margin-bottom: 10px;
 }
 
+@media screen and (max-width: 1200px) {
+    .img-cobertura {
+        margin-top: 25%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .img-cobertura {
+        margin-top: 35%;
+    }
+}
+
 @media screen and (max-width: 790px) {
     .descripcion-flotilla {
         font-size: 17px;
+    }
+    .img-cobertura {
+        margin-top: 65%;
     }
 }
 
@@ -196,6 +222,9 @@
     .cobertura-derecho {
         width: 95%;
         text-align: justify;
+    }
+    .cobertura-derecho {
+        margin-left: 0px;
     }
 }
 

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const {
     getAllVacancies,
+    getVancantesDisponibles,
     createVacancy,
     updateVacancy,
     updateAvailableVacancy,

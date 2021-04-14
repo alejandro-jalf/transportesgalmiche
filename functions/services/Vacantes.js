@@ -9,7 +9,6 @@ const {
     updateVacante,
     deleteVacante,
 } = require("../models");
-const vacantes = require("../models/Vacantes");
 
 const Vacantes = (() => {
 
@@ -21,6 +20,20 @@ const Vacantes = (() => {
         }
 
         const vacantes_disponibles = 0;
+
+        result.data.vacantes_disponibles = vacantes_disponibles;
+
+        return createResponse(200, result);
+    }
+
+    const getVancantesDisponibles = async () => {
+        const result = await getAllVacantes();
+
+        if (result.message === 'Error al consultar la base de datos') {
+            return createResponse(500, result);
+        }
+
+        const vacantes_disponibles = Object.values(result.data).length;
 
         result.data.vacantes_disponibles = vacantes_disponibles;
 
@@ -130,6 +143,7 @@ const Vacantes = (() => {
 
     return {
         getAllVacancies,
+        getVancantesDisponibles,
         createVacancy,
         updateAvailableVacancy,
         updateVacancy,
