@@ -77,7 +77,7 @@ const vacantes = (() => {
         }
     }
     
-    const deleteUser = async (puesto_vacante) => {
+    const deleteVacante = async (puesto_vacante) => {
         try {
             const FieldValue = admin.firestore.FieldValue;
             const document = admin.firestore().collection("transportes").doc("Vacantes");
@@ -98,7 +98,7 @@ const vacantes = (() => {
         getVacanteByName,
         createVacante,
         updateVacante,
-        deleteUser,
+        deleteVacante,
     }
 })();
 
