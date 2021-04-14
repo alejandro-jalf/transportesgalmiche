@@ -2,6 +2,14 @@ const router = require('express').Router();
 const {
     getAllUsuarios,
     getUsuarioById,
+    createUsuario,
+    loginUsuario,
+    updateUsuario,
+    updateCorreo,
+    updateContra,
+    recuperaPassword,
+    updateActivo,
+    deleteUsuario,
 } = require('../services');
 
 router.route("/v1/usuarios").get(async (req, res) => {

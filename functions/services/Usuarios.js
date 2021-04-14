@@ -1,4 +1,10 @@
-const { sendEmail , createResponse, configureNameEmail, encriptData } = require("../utils");
+const {
+    sendEmail,
+    createResponse,
+    configureNameEmail,
+    encriptData,
+    createContentError,
+} = require("../utils");
 const {
     validateBodyCrateUser,
     validateBodyLogin,
@@ -6,6 +12,7 @@ const {
     validateBodyEmail,
     validateBodyUpdatePassword,
     validateBodyUpdateStatus,
+    validateBodyUpdateEmail,
 } = require("../validations");
 const {
     createUser,
@@ -30,7 +37,7 @@ const Usuarios = (() => {
     }
 
     const getUsuarioById = async (correo_user) => {
-        const result = await getUserById(correo_user);
+        const result = await getUserById(configureNameEmail(correo_user));
 
         if (result.message === 'Error al consultar la base de datos') {
             return createResponse(500, result);
@@ -96,10 +103,12 @@ const Usuarios = (() => {
         }
 
         const config = await getDataFirebase();
-        console.log(existUser.data);
+
+        delete existUser.data.recovery_code_user;
+        delete existUser.data.password_user;
 
         existUser.message = "Bienvenido";
-        existUser.data.firebaseConfig = (config.data.config) ?  config.data.config : {};
+        existUser.data.firebaseConfig = (config.data. firebaseConfig) ?  config.data. firebaseConfig : {};
         return createResponse(200, existUser);
     }
 
@@ -118,14 +127,12 @@ const Usuarios = (() => {
             if (!existUser.success) {
                 return createResponse(200, existUser);
             }
-            
 
             correo_user = configureNameEmail(correo_user);
-            const newEmail = bodyUsuarios.new_correo_user;
+            const newEmail = bodyUsuarios.correo_user;
             bodyUsuarios.correo_user = newEmail;
 
             bodyUsuarios['password_user'] = existUser.data.password_user;
-            bodyUsuarios['activo_user'] = existUser.data.activo_user;
             bodyUsuarios['recovery_code_user'] = existUser.data.recovery_code_user;
 
             const responseDelete = await deleteUser(correo_user);
@@ -150,7 +157,6 @@ const Usuarios = (() => {
 
             bodyUsuarios['correo_user'] = existUser.data.correo_user;
             bodyUsuarios['password_user'] = existUser.data.password_user;
-            bodyUsuarios['activo_user'] = existUser.data.activo_user;
             bodyUsuarios['recovery_code_user'] = existUser.data.recovery_code_user;
             const response = await updateUser(correo_user, bodyUsuarios);
             
@@ -161,19 +167,19 @@ const Usuarios = (() => {
     }
 
     const updateCorreo = async (correo_user, bodyCorreo) => {
-        const resultValidate = validateBodyEmail(bodyCorreo);
+        const resultValidate = validateBodyUpdateEmail(bodyCorreo);
         if (!resultValidate.success) {
             return createResponse(400, resultValidate);
         }
 
-        if (correo_user === bodyCorreo.new_correo_user) {
+        if (correo_user === bodyCorreo.correo_user) {
             return createResponse(
                 200,
                 createContentError("El nuevo correo es igual al correo actual", {})
             );
         }
 
-        const existUser = await verifyExistUserById(correo_user, bodyCorreo.new_correo_user);
+        const existUser = await verifyExistUserById(correo_user, bodyCorreo.correo_user);
         if (existUser.message === "Error al consultar la base de datos") {
             return createResponse(500, existUser);
         }
@@ -190,7 +196,7 @@ const Usuarios = (() => {
         }
         
         correo_user = configureNameEmail(correo_user);
-        const newEmail = bodyCorreo.new_correo_user;
+        const newEmail = bodyCorreo.correo_user;
         bodyCorreo = existUser.data;
         bodyCorreo.correo_user = newEmail;
         
@@ -221,11 +227,23 @@ const Usuarios = (() => {
             return createResponse(200, existUser);
         }
 
-        if (existUser.data.password_user !== encriptData(bodyPassword.password_user)) {
-            return createResponse(
-                200,
-                createContentError("Contraseña actual incorrecta", {})
-            );
+        if (existUser.data.recovery_code_user === 'empty') {
+            if (existUser.data.password_user !== encriptData(bodyPassword.password_user)) {
+                return createResponse(
+                    200,
+                    createContentError("Contraseña actual incorrecta", {})
+                );
+            }
+        } else {
+            if (
+                existUser.data.password_user !== encriptData(bodyPassword.password_user) &&
+                existUser.data.recovery_code_user !== bodyPassword.password_user
+            ) {
+                return createResponse(
+                    200,
+                    createContentError("Codigo de seguridad y contraseña actual incorrecta", {})
+                );
+            }
         }
 
         if (existUser.data.password_user === encriptData(bodyPassword.new_password_user)) {
@@ -238,6 +256,7 @@ const Usuarios = (() => {
         const newPassword = encriptData(bodyPassword.new_password_user);
         bodyPassword = existUser.data;
         bodyPassword.password_user = newPassword;
+        bodyPassword.recovery_code_user = 'empty'
         const response = await updateUser(correo_user, bodyPassword);
         
         if(!response.success) return createResponse(500, response);
@@ -247,8 +266,7 @@ const Usuarios = (() => {
     }
 
     const recuperaPassword = async (correo_user) => {
-        correo_user = configureNameEmail(correo_user);
-        const existUser = await getUserById(correo_user);
+        const existUser = await getUserById(configureNameEmail(correo_user));
         if (existUser.message === "Error al consultar la base de datos") {
             return createResponse(500, existUser);
         }
@@ -271,7 +289,7 @@ const Usuarios = (() => {
 
         const content = `
         <h1>Se esta recuperando tu cuenta</h1>
-        <p>Para poder recuperar tu cuenta es necesario que vayas a la pagina oficial de trasnportes galmiche e ingreses al apartado de iniciar sesion, tendras que colocar tu correo electronico como lo haces normalmente cuando inicias sesion y en el apartado de contraseña deberas escribir el codigo de seguridad que se te esta proporcionado a continuacion:</p> <br>
+        <p>Para poder recuperar tu cuenta es necesario que vayas a la pagina oficial de transportes galmiche e ingreses al apartado de iniciar sesion, tendras que colocar tu correo electronico como lo haces normalmente cuando inicias sesion y en el apartado de contraseña deberas escribir el codigo de seguridad que se te esta proporcionado a continuacion:</p> <br>
         <b>Codigo de seguridad: </b> ${codigo} <br>
         <p>Posteriormente cuando ya hayas iniciado sesion es importante que cambies tu contraseña por una que sea facil de recordar para ti y que sea dificil de decifrar para los demas, es importante recordar que tu nueva contraseña debe ser mayor de 6 caracteres y debe contener por lo menos una letra y un numero</p>
         `;

@@ -1,10 +1,5 @@
-const {
-    createContentAssert,
-    createContentError,
-    configureNameEmail,
-    getFechaActual,
-    getHoraActual,
-} = require("../utils");
+const { createContentAssert, createContentError, } = require("../utils");
+const admin = require("firebase-admin");
 
 const vacantes = (() => {
 

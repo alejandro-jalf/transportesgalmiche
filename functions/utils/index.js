@@ -105,13 +105,12 @@ const utils = (() => {
 
         try {
             const info = await transporter.sendMail({
-                from: '"Pagina Oficial" <transportesgalmiche.servicio@gmail.com>',
+                from: '"Transportes Galmiche" <transportesgalmiche.servicio@gmail.com>',
                 to,
                 subject,
                 html: content
             });
             
-            console.log('Al fina de la respuesta', info);
             return createContentAssert('Correo enviado');
         } catch (error) {
             console.log(error);

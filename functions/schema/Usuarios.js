@@ -14,10 +14,11 @@ const Usuarios = (() => {
         correo_user: joi.string().min(1).max(70).email().required(),
         password_user: joi.string().min(1).max(150).required(),
         tipo_user: joi.string().min(1).max(10).allow('invited', 'manager', 'executive').required(),
-        access_to_user: joi.string().min(1).required()
+        access_to_user: joi.array().min(1).required()
     });
 
     const schemaLogin = joi.object({
+        correo_user: joi.string().min(1).max(70).email().required(),
         password_user: joi.string().min(1).max(150).required()
     });
 
@@ -28,7 +29,7 @@ const Usuarios = (() => {
         direccion_user: joi.string().min(1).max(150).required(),
         correo_user: joi.string().min(1).max(70).email().required(),
         tipo_user: joi.string().min(1).max(10).allow('invited', 'manager', 'executive').required(),
-        access_to_user: joi.string().min(1).required(),
+        access_to_user: joi.array().min(1).required(),
         activo_user: joi.boolean().required()
     });
 
