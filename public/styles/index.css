@@ -21,6 +21,22 @@
     font-size: 40px;
 }
 
+.carousel-caption {
+    color: rgb(255, 255, 255);
+    text-shadow: -1px -1px 3px #000;
+    background: rgba(0, 0, 0, 0.185);
+    width: 100%;
+    margin-left: -15%;
+}
+
+.carousel-caption h5{
+    font-size: 30px;
+}
+
+.carousel-caption p,.carousel-caption ul{
+    font-size: 20px;
+}
+
 .sqs {
     width: 100%;
     text-align: center;
@@ -43,18 +59,18 @@
     width: 28%;
 }
 
-.flecha-carrusel {
-    background: rgba(0, 0, 0, 0.007);
-    color: rgb(255, 255, 255);
-    text-shadow: 0px 0px 5px #000;
-}
-.flecha-carrusel:hover {
-    background: rgba(0, 0, 0, 0.459);
-}
-
 .icon-flecha {
     color: aqua;
     font-size: 100px;
+}
+
+@media screen and (max-width: 1000px) {
+    .carousel-caption h5{
+        font-size: 25px;
+    }
+    .carousel-caption p,.carousel-caption ul{
+        font-size: 17px;
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -73,11 +89,23 @@
     .contenido {
         font-size: 18px;
     }
+    .carousel-caption h5{
+        font-size: 23px;
+    }
+    .carousel-caption p,.carousel-caption ul{
+        font-size: 15px;
+    }
 }
 
 @media screen and (max-width: 724px) {
     .img-qs {
         width: 45%;
+    }
+    .carousel-caption h5{
+        font-size: 18px;
+    }
+    .carousel-caption p,.carousel-caption ul{
+        font-size: 12px;
     }
 }
 
@@ -93,11 +121,49 @@
     }
 }
 
+@media screen and (max-width: 570px) {
+    .carousel-caption {
+        background: rgb(41, 41, 41);
+        height: 150px;
+    }
+    .carousel-caption h5{
+        font-size: 15px;
+    }
+    .carousel-caption p,.carousel-caption ul{
+        font-size: 10px;
+        /* background: #000; */
+        margin: 0px;
+        padding: 10px;
+    }
+    .carousel-inner, .carousel-item {
+        height: 300px;
+        /* background: #000; */
+    }
+}
+
 @media screen and (max-width: 450px) {
     .subtitle {
         font-size: 25px;
     }
     .contenido {
         font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    .carousel-caption {
+        height: 170px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .carousel-caption {
+        height: 180px;
+    }
+}
+
+@media screen and (max-width: 337px) {
+    .carousel-caption {
+        height: 190px;
     }
 }
