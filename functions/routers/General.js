@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const {
-    sendMail,
+    requestInformation,
     getDataConfigFirebase,
+    sendDataLaboral,
 } = require("../services");
 
 router.route("/v1/firebaseconfig").get(async (req, res) => {
@@ -12,6 +13,12 @@ router.route("/v1/firebaseconfig").get(async (req, res) => {
 router.route("/v1/requestInformation").post(async (req, res) => {
     const { body } = req;
     const { status, response } = await requestInformation(body);
+    res.status(status).json(response);
+});
+
+router.route("/v1/requestEmpleo").post(async (req, res) => {
+    const { body } = req;
+    const { status, response } = await sendDataLaboral(body);
     res.status(status).json(response);
 });
 
