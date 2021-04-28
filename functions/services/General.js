@@ -78,15 +78,14 @@ const General = (() => {
             ? "<b>Curriculum vitae: </b>🥺 El solicitante no envio el curriculum"
             : `
                 <b>Curriculum vitae: </b>
-                <a href="${link_curriculum}" target="_blank" rel="noopener noreferrer" download="cv - ${nombre} ${apellidos}">
+                <a href="${link_curriculum}" target="_blank" download="cv - ${nombre} ${apellidos}">
                     Decargar curriculum aqui
                 </a> <br>
             `;
         
         content += curriculum;
 
-        const responseEmail = await sendEmail('alexlofa45@gmail.com', 'Solicitud de empleo', content);
-        // const responseEmail = await sendEmail('administracion@transportesgalmiche.com', 'Solicitud de empleo', content);
+        const responseEmail = await sendEmail('administracion@transportesgalmiche.com', 'Solicitud de empleo', content);
         
         if (!responseEmail.success) {
             return createResponse(500, responseEmail);
