@@ -1,4 +1,4 @@
-const { schemaVacante } = require('../schema');
+const { schemaVacante, schemaDisponible } = require('../schema');
 const { createContentAssert, createContentError } = require('../utils');
 
 const Vacantes = (() => {
@@ -41,7 +41,7 @@ const Vacantes = (() => {
             );
         }
 
-        let resultValidate = schemaVacante.validate(bodyVacanteDisponible);
+        let resultValidate = schemaDisponible.validate(bodyVacanteDisponible);
         if (resultValidate.error) {
             return createContentError("Algun dato fue enviado de manera incorrecta", resultValidate.error);
         }

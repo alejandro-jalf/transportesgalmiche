@@ -20,7 +20,7 @@ const vacantes = (() => {
         }
     }
 
-    const getVacanteByName = async (puesto_vacante) => {
+    const getVacanteByName = async (puesto_vacante = "") => {
         try {
             const document = admin.firestore().collection("transportes").doc("Vacantes");
             const response = await document.get();
@@ -30,7 +30,9 @@ const vacantes = (() => {
                 return createContentError("No hay puestos registrados");
             }
 
-            const vacanteFinded = data[`${puesto_vacante}`];
+            const vacanteFinded = Object.values(data).find(
+                (vacante) => vacante.puesto_vacante.toLowerCase().trim() === puesto_vacante.toLowerCase().trim()
+            );
             if (!vacanteFinded) {
                 return createContentError(`La vacante ${puesto_vacante} no esta registrado`)
             }
@@ -74,6 +76,8 @@ const vacantes = (() => {
     
     const deleteVacante = async (puesto_vacante) => {
         try {
+            console.log(puesto_vacante);
+            puesto_vacante = puesto_vacante.trim();
             const FieldValue = admin.firestore.FieldValue;
             const document = admin.firestore().collection("transportes").doc("Vacantes");
         
