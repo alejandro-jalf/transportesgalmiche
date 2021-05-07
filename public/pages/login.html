@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Transportes Galmiche</title>
+        <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet" href="../styles/pages.css">
+        <link rel="stylesheet" href="../styles/icofont/icofont.min.css">
+        <link rel="stylesheet" href="../styles/login.css">
+    </head>
+    <body>
+
+        <div class="modal-dialog-centered" id="loading">
+            <img src="../images/loader3.gif" alt="">
+        </div>
+
+        <img src="../images/arrow up.png" alt="" class="btnup">
+        <div class="nav-header">
+            <img src="../images/fondo 24-03-2021.png" alt="" class="img-banner">
+            <div class="container-logo">
+                <img src="../images/logo 24-03-2021.png" alt="" class="img-logo">
+            </div>
+        
+            <!-- <img src="./images/letras.png" alt="" class="img-letras"> -->
+            <div class="letras-title">
+                <div>Transportes Galmiche</div>
+            </div>
+            <nav class="nav nav-body">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" tabindex="-1" aria-disabled="true">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./contacto.html" tabindex="-1" aria-disabled="true">Contacto</a>
+                </li>
+                <li class="nav-item nav-oferta">
+                    <a class="nav-link" href="./ofertaLaboral.html" tabindex="-1" aria-disabled="true">Oferta laboral</a>
+                </li>
+            </nav>
+        </div>
+        <div class="container" id="app">
+            <div class="logo-container">
+                <span class="icofont-business-man logo-user"></span>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Correo Electronico:</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        placeholder="alguien@dominio.subdominio"
+                        v-model="user"
+                        @keyup.enter="focusPassword()"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Contraseña</label>
+                    <input
+                        :type="typeInput"
+                        ref="inputPassword"
+                        v-model="password"
+                        placeholder="password"
+                        class="form-control"
+                        @keyup.enter="initSesion()"
+                    >
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" v-model="viewPassword">
+                    <label class="form-check-label" for="exampleCheck1">Ver contraseña</label>
+                </div>
+                <button type="button" class="btn btn-primary" @click="initSesion()">Iniciar sesion</button>
+            </form>
+        
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" :class="alertDialog.headerColor + ' ' + alertDialog.headerBackground">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ alertDialog.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ alertDialog.message }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="page-footer font-small bg-dark text-white pt-4 mt-5">
+            <ul class="list-unstyled list-inline text-center">
+                <li class="list-inline-item" style="display: block;">
+                    Redes sociales
+                </li>
+                <li class="list-inline-item">
+                    <img src="../images/fb.png" alt="" width="30px">
+                    <a class="btn-floating btn-fb mx-1 text-white" href="https://www.facebook.com/Transportes-Galmiche-109839623887012" target="_blank">
+                        Transportes Galmiche
+                    </a>
+                </li>
+                |
+                <li class="list-inline-item">
+                    <img src="../images/Instagram.png" alt="" width="30px">
+                    <a class="text-white" href="https://www.instagram.com/transportesgalmiche" target="_blank">transportesgalmiche</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a>Transportes Galmiche</a>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="../scripts/main.js"></script>
+        <script src="../scripts/login.js"></script>
+    </body>
+</html>

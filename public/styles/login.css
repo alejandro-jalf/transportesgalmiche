@@ -1,0 +1,13 @@
+.logo-container {
+    text-align: center;
+    height: 280px;
+    padding-top: 40px;
+    margin-top: 5%;
+}
+
+.logo-user {
+    font-size: 200px;
+    border: 2px solid #000;
+    border-radius: 100%;
+    padding: 30px;
+}
