@@ -12,9 +12,9 @@
         <link rel="stylesheet" href="../styles/pages.css">
         <link rel="stylesheet" href="../styles/icofont/icofont.min.css">
         <link rel="stylesheet" href="../styles/administra.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-
         <div class="modal-dialog-centered" id="loading">
             <img src="../images/loader3.gif" alt="">
         </div>
@@ -126,7 +126,142 @@
                     </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="Usuarios" role="tabpanel" aria-labelledby="profile-tab">
+                    <button v-if="viewListUsers" type="button" class="btn btn-success mt-3" @click="setCreandoUser(1)">
+                        <span class="icofont-ui-add"></span>
+                        Agregar usuario
+                    </button>
+                    <table v-if="viewListUsers" class="table table-light mt-2">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Direccion</th>
+                                <th>Correo</th>
+                                <th>Tipo de usuario</th>
+                                <th>Permisos</th>
+                                <th>Estatus</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(user, indexVacante) in listUsers" :key="indexVacante">
+                                <td>{{ `${user.nombre_user} ${user.apellido_p_user} ${user.apellido_m_user}` }}</td>
+                                <td>{{ user.direccion_user }}</td>
+                                <td>{{ user.correo_user }}</td>
+                                <td>{{ user.tipo_user }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Acceso a
+                                        </a>
 
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a v-for="(tab, indexTabs) in user.access_to_user" :key="indexTabs" class="dropdown-item">{{ tab }}</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ parseActivoUser(user.activo_user) }}</td>
+                                <td>
+                                    <button :class="getColorButton(user.activo_user)" class="btn btn-disponible" type="button" @click="updateActivoUser(user.correo_user, user.activo_user)">
+                                        <span :class="getIcon(user.activo_user)" class="span-diponible"></span>
+                                    </button>
+                                    <button class="btn btn-actions btn-warning" type="button" @click="viewUSer(user)">
+                                        <span class="span-actions icofont-ui-edit"></span>
+                                    </button>
+                                    <button class="btn btn-actions btn-danger" type="button" @click="deleteUser(user.correo_user)">
+                                        <span class="span-actions icofont-bin"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div v-else class="card mt-3">
+                        <div class="card-header text-white bg-info">
+                            Creando Usuario
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <div class="form-group">
+                                    <label for="inputCorreoUser">Correo electronico:</label>
+                                    <input type="email" class="form-control" id="inputCorreoUser" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="alguien@dominio.subdominio">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputNombre">Nombre(s)</label>
+                                        <input ref="nameUser" type="text" class="form-control" id="inputNombre" v-model="userActual.nombre_user" @keyup.enter="$refs.aPUser.focus()" placeholder="Ingrese nombre(s)">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAPaterno">Apellido Paterno</label>
+                                        <input ref="aPUser" type="text" class="form-control" id="inputAPaterno" v-model="userActual.apellido_p_user" @keyup.enter="$refs.aMUser.focus()" placeholder="Ingrese su apellido paterno">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAMaterno">Apellido Materno</label>
+                                        <input ref="aMUser" type="text" class="form-control" id="inputAMaterno" v-model="userActual.apellido_m_user" @keyup.enter="$refs.dirUser.focus()" placeholder="Ingrese su apellido materno">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDireccionUser">Direccion:</label>
+                                    <input ref="dirUser" type="text" class="form-control" id="inputDireccionUser" v-model="userActual.direccion_user" @keyup.enter="$refs.passUser.focus()" placeholder="Calle, #Num, Colonia, Ciudad, Estado">
+                                </div>
+                                <div v-if="creandoUser === 1" class="form-row">
+                                    <div class="form-group col-md-6 inputs-password">
+                                        <label for="inputPassword">Contraseña:</label>
+                                        <input ref="passUser" type="password" class="form-control" :class="statusPassword" id="inputPassword" v-model="userActual.password_user" @keyup.enter="$refs.passRUser.focus()" placeholder="Ingrese su contraseña">
+                                        <div class="valid-feedback">
+                                            Formato correcto.
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Debe tener mas de 6 carecteres, y contener al menos una letra y un numero.
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 inputs-password">
+                                        <label for="inputPasswordRespeat">Repita su contraseña:</label>
+                                        <input ref="passRUser" type="password" class="form-control" :class="statusPasswordRepeat" id="inputPasswordRespeat" v-model="userActual.password_user_repeat" placeholder="Repita su contraseña">
+                                        <div class="valid-feedback">
+                                            Las contraseñas coinciden.
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Las contraseñas no coinciden
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectAccessToUser">Acceso a</label>
+                                    <select class="form-control" id="selectAccessToUser" multiple  v-model="userActual.access_to_user">
+                                        <option value="vacantes">Vacantes</option>
+                                        <option value="usuarios">Usuarios</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="selectTypeUser">Tipo de usuario</label>
+                                    <select class="form-control" id="selectTypeUser" v-model="userActual.tipo_user">
+                                        <option value="seleccione">Seleccione....</option>
+                                        <option value="invited">Invitado(invited)</option>
+                                        <option value="executive">Ejecutivo(executive)</option>
+                                        <option value="manager">Administrador del sistema(manager)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="custom-control custom-switch mt-2 mb-2">
+                                    <input type="checkbox" class="custom-control-input" id="switchActivoUser" v-model="userActual.activo_user">
+                                    <label class="custom-control-label" for="switchActivoUser">Activo</label>
+                                </div>
+                                <button type="button" class="btn btn-primary float-right" @click="createUser()">
+                                    <span class="icofont-check-circled"></span>
+                                    {{ textButtonCreandoUser }}
+                                </button>
+                                <button type="button" class="btn btn-secondary float-right mr-2" @click="setCreandoUser(0)">
+                                    <span class="icofont-close-circled"></span>
+                                    Cancelar
+                                </button>
+                                <button v-if="creandoUser === 1" type="button" class="btn btn-warning float-right mr-2" @click="cleanCampsUser()">
+                                    <span class="icofont-mop"></span>
+                                    Limpiar Campos
+                                </button>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 
@@ -148,6 +283,27 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Option -->
+            <div class="modal fade" id="modalOptionAdministra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" :class="alertOptionDialog.headerColor + ' ' + alertOptionDialog.headerBackground">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ alertOptionDialog.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ alertOptionDialog.message }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" @click="alertOptionDialog.callBack()">Aceptar</button>
                         </div>
                     </div>
                 </div>

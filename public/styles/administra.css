@@ -16,8 +16,18 @@
 
 .btn-disponible {
     padding: 1px;
+    margin-bottom: 2px;
 }
 
 .span-diponible {
     font-size: 38px;
+}
+
+.btn-actions {
+    padding: 4px;
+    margin-bottom: 2px;
+}
+
+.span-actions {
+    font-size: 31px;
 }
