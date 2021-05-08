@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Transportes Galmiche</title>
+        <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet" href="../styles/pages.css">
+        <link rel="stylesheet" href="../styles/icofont/icofont.min.css">
+        <link rel="stylesheet" href="../styles/administra.css">
+    </head>
+    <body>
+
+        <div class="modal-dialog-centered" id="loading">
+            <img src="../images/loader3.gif" alt="">
+        </div>
+
+        <img src="../images/arrow up.png" alt="" class="btnup">
+        <div class="nav-header">
+            <img src="../images/fondo 24-03-2021.png" alt="" class="img-banner">
+            <div class="container-logo">
+                <img src="../images/logo 24-03-2021.png" alt="" class="img-logo">
+            </div>
+        
+            <!-- <img src="./images/letras.png" alt="" class="img-letras"> -->
+            <div class="letras-title">
+                <div>Transportes Galmiche</div>
+            </div>
+            <nav class="nav nav-body">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./servicios.html" tabindex="-1" aria-disabled="true">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./contacto.html" tabindex="-1" aria-disabled="true">Contacto</a>
+                </li>
+                <li class="nav-item nav-oferta">
+                    <a class="nav-link" href="./ofertaLaboral.html" tabindex="-1" aria-disabled="true">Oferta laboral</a>
+                </li>
+            </nav>
+        </div>
+        <div class="container" id="app">
+            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link tab-options active" id="Vacantes-tab" data-toggle="tab" href="#Vacantes" role="tab" aria-controls="Vacantes" aria-selected="true">
+                        <span class="icofont-list"></span>
+                        Vacantes
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link tab-options" id="Usuarios-tab" data-toggle="tab" href="#Usuarios" role="tab" aria-controls="Usuarios" aria-selected="false">
+                        <span class="icofont-ui-user-group"></span>
+                        Usuarios
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link tab-options" id="perfil-tab" data-toggle="tab" href="#perfil" role="tab" aria-controls="perfil" aria-selected="false">
+                        <span class="icofont-user-alt-3"></span>
+                        Perfil
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane tab-c fade show active" id="Vacantes" role="tabpanel" aria-labelledby="Vacantes-tab">
+                    <button v-if="!creandoVacante" type="button" class="btn btn-success mt-3" @click="setCreandoVacante(true)">
+                        <span class="icofont-ui-add"></span>
+                        Crear Puesto
+                    </button>
+                    <table v-if="!creandoVacante" class="table table-light mt-2">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Puesto</th>
+                                <th>Requisitos</th>
+                                <th>Disponible vacante</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(vacante, indexVacante) in listVacantes" :key="indexVacante">
+                                <td>{{ vacante.puesto_vacante }}</td>
+                                <td>{{ vacante.requisitos_vacante }}</td>
+                                <td>{{ parseDisponible(vacante.disponible_vacante) }}</td>
+                                <td>
+                                    <button :class="getColorButton(vacante.disponible_vacante)" class="btn btn-disponible" type="button">
+                                        <span :class="getIcon(vacante.disponible_vacante)" class="span-diponible"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div v-else class="card mt-3">
+                        <div class="card-header text-white bg-info">
+                            Creando Puesto
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <div class="form-group">
+                                    <label for="inputNameVac">Nombre del puesto:</label>
+                                    <input type="text" class="form-control" id="inputNameVac" v-model="vacante.name" @keyup.enter="$refs.areaRequisitos.focus()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Requisitos:</label>
+                                    <textarea class="form-control" ref="areaRequisitos" rows="3" v-model="vacante.requisitos"></textarea>
+                                </div>
+                                <div class="custom-control custom-switch mt-2 mb-2">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="vacante.disponible">
+                                    <label class="custom-control-label" for="customSwitch1">Vacante disponible</label>
+                                </div>
+                                <button type="button" class="btn btn-primary float-right" @click="createVacante()">
+                                    <span class="icofont-check-circled"></span>
+                                    Crear vacante
+                                </button>
+                                <button type="button" class="btn btn-secondary float-right mr-2" @click="setCreandoVacante(false)">
+                                    <span class="icofont-close-circled"></span>
+                                    Cancelar
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane tab-c fade" id="Usuarios" role="tabpanel" aria-labelledby="profile-tab">
+
+                </div>
+                <div class="tab-pane tab-c fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalAdministra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" :class="alertDialog.headerColor + ' ' + alertDialog.headerBackground">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ alertDialog.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ alertDialog.message }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="page-footer font-small bg-dark text-white pt-4 mt-5">
+            <ul class="list-unstyled list-inline text-center">
+                <li class="list-inline-item" style="display: block;">
+                    Redes sociales
+                </li>
+                <li class="list-inline-item">
+                    <img src="../images/fb.png" alt="" width="30px">
+                    <a class="btn-floating btn-fb mx-1 text-white" href="https://www.facebook.com/Transportes-Galmiche-109839623887012" target="_blank">
+                        Transportes Galmiche
+                    </a>
+                </li>
+                |
+                <li class="list-inline-item">
+                    <img src="../images/Instagram.png" alt="" width="30px">
+                    <a class="text-white" href="https://www.instagram.com/transportesgalmiche" target="_blank">transportesgalmiche</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a>Transportes Galmiche</a>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="../scripts/main.js"></script>
+        <script src="../scripts/administra.js"></script>
+    </body>
+</html>
