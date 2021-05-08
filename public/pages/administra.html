@@ -68,11 +68,11 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane tab-c fade show active" id="Vacantes" role="tabpanel" aria-labelledby="Vacantes-tab">
-                    <button v-if="!creandoVacante" type="button" class="btn btn-success mt-3" @click="setCreandoVacante(true)">
+                    <button v-if="creandoVacante === 0" type="button" class="btn btn-success mt-3" @click="setNewPuesto()">
                         <span class="icofont-ui-add"></span>
                         Crear Puesto
                     </button>
-                    <table v-if="!creandoVacante" class="table table-light mt-2">
+                    <table v-if="creandoVacante === 0" class="table table-light mt-2">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Puesto</th>
@@ -87,8 +87,14 @@
                                 <td>{{ vacante.requisitos_vacante }}</td>
                                 <td>{{ parseDisponible(vacante.disponible_vacante) }}</td>
                                 <td>
-                                    <button :class="getColorButton(vacante.disponible_vacante)" class="btn btn-disponible" type="button">
+                                    <button :class="getColorButton(vacante.disponible_vacante)" class="btn btn-disponible" type="button" @click="changeStatusVacante(vacante.puesto_vacante, vacante.disponible_vacante)">
                                         <span :class="getIcon(vacante.disponible_vacante)" class="span-diponible"></span>
+                                    </button>
+                                    <button class="btn btn-actions btn-warning" type="button" @click="viewVacante(vacante)">
+                                        <span class="span-actions icofont-ui-edit"></span>
+                                    </button>
+                                    <button class="btn btn-actions btn-danger" type="button" @click="deleteVacante(vacante.puesto_vacante)">
+                                        <span class="span-actions icofont-bin"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -97,7 +103,7 @@
 
                     <div v-else class="card mt-3">
                         <div class="card-header text-white bg-info">
-                            Creando Puesto
+                            {{ textHeaderCreandoVacante }}
                         </div>
                         <div class="card-body">
                             <p class="card-text">
@@ -115,9 +121,9 @@
                                 </div>
                                 <button type="button" class="btn btn-primary float-right" @click="createVacante()">
                                     <span class="icofont-check-circled"></span>
-                                    Crear vacante
+                                    {{ textButtonCreandoVacante }}
                                 </button>
-                                <button type="button" class="btn btn-secondary float-right mr-2" @click="setCreandoVacante(false)">
+                                <button type="button" class="btn btn-secondary float-right mr-2" @click="setCreandoVacante(0)">
                                     <span class="icofont-close-circled"></span>
                                     Cancelar
                                 </button>
@@ -126,7 +132,7 @@
                     </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="Usuarios" role="tabpanel" aria-labelledby="profile-tab">
-                    <button v-if="viewListUsers" type="button" class="btn btn-success mt-3" @click="setCreandoUser(1)">
+                    <button v-if="viewListUsers" type="button" class="btn btn-success mt-3" @click="setNewUsuario()">
                         <span class="icofont-ui-add"></span>
                         Agregar usuario
                     </button>
@@ -177,7 +183,7 @@
 
                     <div v-else class="card mt-3">
                         <div class="card-header text-white bg-info">
-                            Creando Usuario
+                            {{ textHeaderCreandoUser }}
                         </div>
                         <div class="card-body">
                             <p class="card-text">

@@ -28,12 +28,13 @@ var appAdministra = new Vue({
                     disponible_vacante: false,
                 },
             },
+            vacante_actual: '',
             vacante: {
                 name: '',
                 requisitos: '',
                 disponible: true,
             },
-            creandoVacante: false,
+            creandoVacante: 0,
             // Usuarios
             listUsers: {
                 user1: {
@@ -50,6 +51,7 @@ var appAdministra = new Vue({
                 }
             },
             creandoUser: 0,
+            user_actual: '',
             userActual: {
                 nombre_user: '',
                 apellido_p_user: '',
@@ -86,9 +88,21 @@ var appAdministra = new Vue({
         viewListUsers() {
             return (this.creandoUser === 0)
         },
+        textHeaderCreandoUser() {
+            if (this.creandoUser === 2) return 'Editando datos del usuario: ' + this.user_actual;
+            return 'Creando nuevo usuario'
+        },
         textButtonCreandoUser() {
             if (this.creandoUser === 2) return 'Guardar Cambios'
             return 'Crear Usuario'
+        },
+        textHeaderCreandoVacante() {
+            if (this.creandoVacante === 2) return 'Editando dato del puesto: ' + this.vacante_actual;
+            return 'Creando nuevo puesto'
+        },
+        textButtonCreandoVacante() {
+            if (this.creandoVacante === 2) return 'Guardar Cambios'
+            return 'Crear puesto'
         },
     },
     methods: {
@@ -119,6 +133,10 @@ var appAdministra = new Vue({
             this.alertOptionDialog.callBack = callBack;
             $('#modalOptionAdministra').modal('show');
         },
+        setNewPuesto() {
+            this.setCreandoVacante(1);
+            this.vacante_actual = '';
+        },
         validateData() {
             if (this.vacante.name.trim() === '') {
                 this.showAlertDialog('Necesita ingresar el nombre del puesto')
@@ -129,6 +147,127 @@ var appAdministra = new Vue({
                 return false;
             }
             return true;
+        },
+        viewVacante(vacante) {
+            this.vacante_actual = vacante.puesto_vacante;
+            const viewVac = { ...vacante }
+            this.vacante = {
+                name: viewVac.puesto_vacante,
+                requisitos: viewVac.requisitos_vacante,
+                disponible: viewVac.disponible_vacante,
+            },
+            this.creandoVacante = 2;
+        },
+        deleteVacante(vacante) {
+            const callBack = async () => {
+                try {
+                    $('#loading').show(100);
+                    const response = await axios({
+                        method: 'delete',
+                        url: 'https://www.anySite.com/delete/' + vacante,
+                    })
+                    
+                    if (response.data.success) {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Exito',
+                            'text-white',
+                            'bg-success'
+                        );
+                    } else {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Advertencia al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-warning'
+                        );
+                    }
+                    
+                    $('#loading').hide(100);
+                    this.setCreandoVacante(false);
+                } catch (error) {
+                    console.log(error);
+                    if (error.response) {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Error al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    } else {
+                        this.showAlertDialog(
+                            'Error inesperado intentelo mas tarde',
+                            'Error al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    }
+                    $('#loading').hide(100);
+                }
+            }
+            this.showAlertOptionsDialog(
+                '¿Quiere eliminar la vancante: "' + vacante + '" de manera permanente?',
+                'Eliminando vacante',
+                'bg-danger',
+                'text-white',
+                callBack
+            )
+        },
+        changeStatusVacante(Vacante, activoVacante) {
+            const callBack = async () => {
+                try {
+                    $('#loading').show(100);
+                    const response = await axios({
+                        method: 'put',
+                        url: 'https://www.anySite.com/delete/' + Vacante,
+                    })
+                    
+                    if (response.data.success) {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Exito',
+                            'text-white',
+                            'bg-success'
+                        );
+                    } else {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Advertencia al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-warning'
+                        );
+                    }
+                    
+                    $('#loading').hide(100);
+                    this.setCreandoVacante(false);
+                } catch (error) {
+                    console.log(error);
+                    if (error.response) {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Error al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    } else {
+                        this.showAlertDialog(
+                            'Error inesperado intentelo mas tarde',
+                            'Error al intentar eliminar el usuario',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    }
+                    $('#loading').hide(100);
+                }
+            }
+            const activoText = activoVacante ? 'No diponible' : 'Disponible';
+            this.showAlertOptionsDialog(
+                '¿Quiere cambiar la vacante "' + Vacante + '" a ' + activoText + '?',
+                'Cambiando estatus de la vacante',
+                'bg-warning',
+                'text-white',
+                callBack
+            )
         },
         async createVacante() {
             if (!this.validateData()) return
@@ -162,7 +301,7 @@ var appAdministra = new Vue({
                 }
                 
                 $('#loading').hide();
-                this.setCreandoVacante(false);
+                this.setCreandoVacante(0);
             } catch (error) {
                 console.log(error);
                 if (error.response) {
@@ -180,10 +319,14 @@ var appAdministra = new Vue({
                         'bg-danger'
                     );
                 }
-                this.setCreandoVacante(false);
+                this.setCreandoVacante(0);
             }
         },
         // Users
+        setNewUsuario() {
+            this.creandoUser = 1;
+            this.user_actual = '';
+        },
         deleteUser(user) {
             const callBack = async () => {
                 try {
@@ -316,6 +459,7 @@ var appAdministra = new Vue({
             };
         },
         viewUSer(user) {
+            this.user_actual = user.correo_user;
             this.userActual = {...user}
             this.userActual.password_user_repeat = '';
             this.creandoUser = 2;
