@@ -270,43 +270,55 @@
                     </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
-                    <h5>Datos de tu perfil</h5>
-                    <div class="datosPerfil mt-2">
-                        <span class="font-weight-bold">Correo Electronico:</span>
-                        alguien@outlook.com
+                    <div v-if="!editandoPerfil" class="mt-4">
+                        <h5>Datos de tu perfil</h5>
+                        <div class="datosPerfil mt-2">
+                            <span class="font-weight-bold">Correo Electronico:</span>
+                            alguien@outlook.com
+                        </div>
+                        <div class="datosPerfil mt-2">
+                            <span class="font-weight-bold">Nombre Completo:</span>
+                            Alguien apellido_p apellido_m
+                        </div>
+                        <div class="datosPerfil mt-2">
+                            <span class="font-weight-bold">Direccion:</span>
+                            Morelo #404 Acayucan, Veracruz
+                        </div>
+                        <button class="btn btn-primary btnEditPErfil" type="button" @click="setEditandoPerfil(true)">
+                            <span class="icofont-ui-edit"></span>
+                            Editar perfil
+                        </button>
                     </div>
-                    <div class="datosPerfil mt-2">
-                        <span class="font-weight-bold">Nombre Completo:</span>
-                        Alguien apellido_p apellido_m
-                    </div>
-                    <div class="datosPerfil mt-2">
-                        <span class="font-weight-bold">Direccion:</span>
-                        Morelo #404 Acayucan, Veracruz
-                    </div>
-                    <button class="btn btn-primary btnEditPErfil" type="button">
-                        <span class="icofont-ui-edit"></span>
-                        Editar perfil
-                    </button>
-                    <div>
+                    <div v-else>
                         <div class="form-group">
                             <label for="inputCorreoUser">Correo electronico:</label>
-                            <input type="email" class="form-control" id="inputCorreoUser" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="alguien@dominio.subdominio">
+                            <input type="email" class="form-control" id="inputCorreoUser" v-model="perfilUser.correo_user" @keyup.enter="$refs.namePerfil.focus()" placeholder="alguien@dominio.subdominio">
                         </div>
                         <div class="form-group">
                             <label for="inputNameuser">Nombre:</label>
-                            <input type="text" class="form-control" id="inputNameuser" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="Ingrese nombre(s)">
+                            <input type="text" class="form-control" id="inputNameuser" ref="namePerfil" v-model="perfilUser.nombre_user" @keyup.enter="$refs.aPPerfil.focus()" placeholder="Ingrese nombre(s)">
                         </div>
                         <div class="form-group">
                             <label for="inputApUser">Apellido Paterno:</label>
-                            <input type="text" class="form-control" id="inputApUser" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="Ingrese Apellido paterno">
+                            <input type="text" class="form-control" id="inputApUser" ref="aPPerfil" v-model="perfilUser.apellido_p_user" @keyup.enter="$refs.aMPerfil.focus()" placeholder="Ingrese Apellido paterno">
                         </div>
                         <div class="form-group">
                             <label for="inputAM">Apellido Materno:</label>
-                            <input type="text" class="form-control" id="inputAM" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="Ingrese Apellido materno">
+                            <input type="text" class="form-control" id="inputAM" ref="aMPerfil" v-model="perfilUser.apellido_m_user" @keyup.enter="$refs.DirPerfil.focus()" placeholder="Ingrese Apellido materno">
                         </div>
                         <div class="form-group">
                             <label for="inputDir">Direccion:</label>
-                            <input type="text" class="form-control" id="inputDir" v-model="userActual.correo_user" @keyup.enter="$refs.nameUser.focus()" placeholder="calle, #Num, Ciudad, Estado">
+                            <input type="text" class="form-control" id="inputDir" ref="DirPerfil" v-model="perfilUser.direccion_user" placeholder="calle, #Num, Ciudad, Estado">
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-secondary" type="button" @click="setEditandoPerfil(false)">
+                                <span class="icofont-ui-close"></span>
+                                Cancelar
+                            </button>
+                            <button class="btn btn-success" type="button">
+                                <span class="icofont-diskette"></span>
+                                Guardar Cambios
+                            </button>
                         </div>
                     </div>
                 </div>

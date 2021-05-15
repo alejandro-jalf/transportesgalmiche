@@ -64,6 +64,19 @@ var appAdministra = new Vue({
                 activo_user: true,
                 access_to_user: [],
             },
+            // Perfil
+            login: true,
+            perfilUser: {
+                nombre_user: 'Jose Alejandro',
+                apellido_p_user: 'Lopez',
+                apellido_m_user: 'Flores',
+                direccion_user: 'Acayucan, Ver',
+                correo_user: 'alexlofa45@gmail.com',
+                tipo_user: 'manager',
+                activo_user: true,
+                access_to_user: ['vacantes', 'usuarios'],
+            },
+            editandoPerfil: false,
         }
     },
     computed: {
@@ -555,6 +568,9 @@ var appAdministra = new Vue({
                 }
                 this.setCreandoVacante(false);
             }
+        },
+        setEditandoPerfil(editandoPerfil) {
+            this.editandoPerfil = editandoPerfil;
         },
     },
 })
