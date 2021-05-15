@@ -11,15 +11,23 @@ var applogin = new Vue({
                 message: 'Mensage',
                 headerColor: 'text-white',
                 headerBackground: 'bg-warning',
-            }
+            },
+            recoveryPassword: false,
+            emailForRecovery: '',
         }
     },
     computed: {
         typeInput() {
             return this.viewPassword ? 'text' : 'password'
-        }
+        },
+        iconSesion() {
+            return this.recoveryPassword ? 'icofont-id' : 'icofont-business-man'
+        },
     },
     methods: {
+        setRecoveryPassword(recoveryPassword) {
+            this.recoveryPassword = recoveryPassword
+        },
         focusPassword() {
             this.$refs.inputPassword.focus();
         },

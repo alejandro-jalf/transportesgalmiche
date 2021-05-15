@@ -47,10 +47,10 @@
         </div>
         <div class="container" id="app">
             <div class="logo-container">
-                <span class="icofont-business-man logo-user"></span>
+                <span class="logo-user" :class="iconSesion"></span>
             </div>
 
-            <form>
+            <form v-if="!recoveryPassword">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Correo Electronico:</label>
                     <input
@@ -76,7 +76,32 @@
                     <input type="checkbox" class="form-check-input" v-model="viewPassword">
                     <label class="form-check-label" for="exampleCheck1">Ver contraseña</label>
                 </div>
-                <button type="button" class="btn btn-primary" @click="initSesion()">Iniciar sesion</button>
+                <div class="text-center">
+                    <div class="lostPassword" @click="setRecoveryPassword(true)">Olvide mi contraseña</div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" @click="initSesion()">Iniciar sesion</button>
+                </div>
+            </form>
+
+            <form v-else>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Correo Electronico:</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        placeholder="alguien@dominio.subdominio"
+                        v-model="emailForRecovery"
+                        @keyup.enter="focusPassword()"
+                        aria-describedby="emailHelp"
+                    >
+                    <small id="emailHelp" class="form-text text-muted">
+                        El correo que debe ingresar es el que utiliza normalmente para iniciar sesion.
+                    </small>
+                </div>
+
+                <button class="btn btn-primary" type="button">Recuperar contrseña</button>
+                <button class="btn btn-secondary" type="button" @click="setRecoveryPassword(false)">Regresar</button>
             </form>
         
             <!-- Modal -->

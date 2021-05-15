@@ -11,3 +11,13 @@
     border-radius: 100%;
     padding: 30px;
 }
+
+.lostPassword {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
+.lostPassword:hover {
+    color: gray;
+}
