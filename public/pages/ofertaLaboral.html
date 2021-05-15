@@ -47,7 +47,7 @@
             </nav>
         </div>
 
-        <div class="container">
+        <div class="container" id="app">
             <div class="not-vacancy text-center pt-4">
                 <h3>Por el momento todos nuestros puestos estan ocupados</h3>
                 <img src="../images/not_vacancy.jpg" alt="" width="100%">
@@ -59,28 +59,33 @@
     
                     <div class="form-group">
                         <label for="puesto">Puesto solicitado</label>
-                        <select id="puesto" class="form-control" name="">
-                            <option>Seleccione el puesto disponible...</option>
-                            <option>Operador de torton</option>
-                            <option>Operador de 3.5 Ton.</option>
+                        <select id="puesto" class="form-control" v-model="puestoSelected">
+                            <option value="noSelected">Seleccione el puesto disponible...</option>
+                            <option
+                                v-for="(vacante, indexVacante) in listRefactorVacante"
+                                :key="indexVacante"
+                            >
+                                {{ vacante }}
+                            </option>
                         </select>
                     </div>
     
                     <div class="alert alert-primary" role="alert">
-                        <h4 class="alert-heading">Requisito y/o habilidades para el puesto de: Operador de torton de 3.5 Ton.</h4>
+                        <h4 class="alert-heading">Requisito y/o habilidades para el puesto de: {{ puestoName }}</h4>
                         <div class="form-group">
-                            <textarea id="my-textarea" class="form-control bg-white " name="" rows="8" readonly>
-    * Contar con licencia federal vigente
-    * Experiencia en unidad de 3.5 Toneladas
-    * Radicar en queretaro
-                            </textarea>
+                            <textarea 
+                                id="my-textarea"
+                                class="form-control bg-white"
+                                rows="8"
+                                readonly
+                            >{{ puestoRequisitos }}</textarea>
                         </div>
                         <hr>
                         <p class="mb-0">Si cumples con los requisitos y tienes las habilidades necesarias rellena el siguiente formulario y envianos tu postulacion, nosotros nos pondremos en contacto contigo</p>
                     </div>
     
-                    <button class="btn btn-primary" id="btn-show-form" type="button" data-target="#formulario" data-toggle="collapse" aria-expanded="false" aria-controls="formulario">
-                        <span class="icofont-tasks" id="spanFillForm"></span>
+                    <button class="btn btn-primary" type="button" data-target="#formulario" data-toggle="collapse" aria-expanded="false" aria-controls="formulario" @click="formVisible = !formVisible">
+                        <span :class="iconBtn" id="spanFillForm"></span>
                         <span id="contentFillBtn">Rellenar formulario</span>
                     </button>
     
@@ -89,38 +94,38 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 inputs-name">
                                 <label for="inputNombre">Nombre(s)</label>
-                                <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre(s)">
+                                <input type="text" class="form-control" v-model="formPostulacion.name" id="inputNombre" placeholder="Ingrese nombre(s)">
                             </div>
                             <div class="form-group col-md-4 inputs-name">
                                 <label for="inputAPaterno">Apellido Paterno</label>
-                                <input type="text" class="form-control" id="inputAPaterno" placeholder="Ingrese su apellido paterno">
+                                <input type="text" class="form-control" v-model="formPostulacion.ap" id="inputAPaterno" placeholder="Ingrese su apellido paterno">
                             </div>
                             <div class="form-group col-md-4 inputs-name">
                                 <label for="inputAMaterno">Apellido Materno</label>
-                                <input type="text" class="form-control" id="inputAMaterno" placeholder="Ingrese su apellido materno">
+                                <input type="text" class="form-control" v-model="formPostulacion.am" id="inputAMaterno" placeholder="Ingrese su apellido materno">
                             </div>
                         </div>
         
                         <div class="form-group">
                             <label for="inputFNacimiento">Fecha de nacimiento</label>
-                            <input id="inputFNacimiento" class="form-control" type="date" name="">
+                            <input v-model="formPostulacion.fecha_nace" id="inputFNacimiento" class="form-control" type="date" name="">
                         </div>
         
                         <div class="form-group">
                             <label for="inputPhone">Telefono de contacto</label>
-                            <input id="inputPhone" class="form-control" type="tel" name="" placeholder="000 000 0000">
+                            <input v-model="formPostulacion.phone" id="inputPhone" class="form-control" type="tel" name="" placeholder="000 000 0000">
                         </div>
         
                         <div class="form-group">
                             <label for="inputEmail">Correo electronico</label>
-                            <input id="inputEmail" class="form-control" type="email" name="" placeholder="alguien@dominio.subdominio">
+                            <input v-model="formPostulacion.email" id="inputEmail" class="form-control" type="email" name="" placeholder="alguien@dominio.subdominio">
                         </div>
         
                         <div class="form-group">
                             <label for="inputDir">Direccion</label>
-                            <input id="inputDir2" class="form-control" type="text" name="" placeholder="Ciudad">
+                            <input v-model="formPostulacion.ciudad" id="inputDir2" class="form-control" type="text" name="" placeholder="Ciudad">
                             <small id="emailHelp" class="form-text text-muted mb-2">*Ciudad</small>
-                            <input id="inputDir3" class="form-control" type="text" name="" placeholder="Estado">
+                            <input v-model="formPostulacion.estado" id="inputDir3" class="form-control" type="text" name="" placeholder="Estado">
                             <small id="emailHelp" class="form-text text-muted mb-2">*Estado</small>
                         </div>
         
@@ -130,49 +135,49 @@
         
                         <div class="form-row">
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondeface" class="custom-control-input" type="radio" name="checkdonde" value="Face">
+                                <input id="dondeface" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="Face">
                                 <label for="dondeface" class="custom-control-label ml-3">Facebook</label>
                             </div>
         
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondepagina" class="custom-control-input" type="radio" name="checkdonde" value="En esta pagina">
+                                <input id="dondepagina" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="En esta pagina">
                                 <label for="dondepagina" class="custom-control-label ml-3">En esta pagina</label>
                             </div>
         
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondeinstagram" class="custom-control-input" type="radio" name="checkdonde" value="Instagram">
+                                <input id="dondeinstagram" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="Instagram">
                                 <label for="dondeinstagram" class="custom-control-label ml-3">Instagram</label>
                             </div>
                         </div>
         
                         <div class="form-row">
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondeamigo" class="custom-control-input" type="radio" name="checkdonde" value="Un amigo">
+                                <input id="dondeamigo" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="Un amigo">
                                 <label for="dondeamigo" class="custom-control-label ml-3">Un amigo</label>
                             </div>
         
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondepublicidad" class="custom-control-input" type="radio" name="checkdonde" value="Publicidad pegada">
+                                <input id="dondepublicidad" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="Publicidad pegada">
                                 <label for="dondepublicidad" class="custom-control-label ml-3">Publicidad pegada</label>
                             </div>
         
                             <div class="form-check col-md-4 custom-checkbox">
-                                <input id="dondeotro" class="custom-control-input" type="radio" name="checkdonde" value="Otro">
+                                <input id="dondeotro" v-model="formPostulacion.enteraste_vacante" class="custom-control-input" type="radio" name="checkdonde" value="Otro">
                                 <label for="dondeotro" class="custom-control-label ml-3">Otro</label>
                             </div>
                         </div>
         
-                        <div class="input-group mt-2" id="otroInput">
+                        <div v-if="isSelectedOther" class="input-group mt-2" id="otroInput">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="my-addon">Otro</span>
                             </div>
-                            <input class="form-control" type="text" name="" placeholder="Especifique" aria-label="Especifique" aria-describedby="my-addon">
+                            <input class="form-control" type="text" v-model="formPostulacion.otro" placeholder="Especifique" aria-label="Especifique" aria-describedby="my-addon">
                         </div>
         
                         <p class="mt-4">Subir curriculum (*opcional)</p>
                         <div class="custom-file">
-                            <input id="inputCurriculum" class="custom-file-input" type="file" name="">
-                            <label for="inputCurriculum" class="custom-file-label">Elejir archivo</label>
+                            <label for="inputCurriculum" class="custom-file-label">{{ nameFile }}</label>
+                            <input @change="onFileSelected" id="inputCurriculum" class="custom-file-input" type="file">
                         </div>
         
                         <button class="btn btn-success float-right mt-4" type="button">
@@ -226,6 +231,8 @@
             </div>
         </div>
     </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
