@@ -51,7 +51,7 @@ var appAdministra = new Vue({
                 }
             },
             creandoUser: 0,
-            user_actual: '',
+            userSelected: '',
             userActual: {
                 nombre_user: '',
                 apellido_p_user: '',
@@ -102,7 +102,7 @@ var appAdministra = new Vue({
             return (this.creandoUser === 0)
         },
         textHeaderCreandoUser() {
-            if (this.creandoUser === 2) return 'Editando datos del usuario: ' + this.user_actual;
+            if (this.creandoUser === 2) return 'Editando datos del usuario: ' + this.userSelected;
             return 'Creando nuevo usuario'
         },
         textButtonCreandoUser() {
@@ -149,6 +149,11 @@ var appAdministra = new Vue({
         setNewPuesto() {
             this.setCreandoVacante(1);
             this.vacante_actual = '';
+            this.vacante = {
+                name: '',
+                requisitos: '',
+                disponible: true,
+            }
         },
         validateData() {
             if (this.vacante.name.trim() === '') {
@@ -338,7 +343,19 @@ var appAdministra = new Vue({
         // Users
         setNewUsuario() {
             this.creandoUser = 1;
-            this.user_actual = '';
+            this.userSelected = '';
+            this.userActual = {
+                nombre_user: '',
+                apellido_p_user: '',
+                apellido_m_user: '',
+                direccion_user: '',
+                correo_user: '',
+                password_user: '',
+                password_user_repeat: '',
+                tipo_user: 'seleccione',
+                activo_user: true,
+                access_to_user: [],
+            }
         },
         deleteUser(user) {
             const callBack = async () => {
@@ -472,7 +489,7 @@ var appAdministra = new Vue({
             };
         },
         viewUSer(user) {
-            this.user_actual = user.correo_user;
+            this.userSelected = user.correo_user;
             this.userActual = {...user}
             this.userActual.password_user_repeat = '';
             this.creandoUser = 2;
