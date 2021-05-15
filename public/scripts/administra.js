@@ -67,11 +67,11 @@ var appAdministra = new Vue({
             // Perfil
             login: true,
             perfilUser: {
-                nombre_user: 'Jose Alejandro',
-                apellido_p_user: 'Lopez',
-                apellido_m_user: 'Flores',
+                nombre_user: 'Alguien',
+                apellido_p_user: 'Martinez',
+                apellido_m_user: 'Martinez',
                 direccion_user: 'Acayucan, Ver',
-                correo_user: 'alexlofa45@gmail.com',
+                correo_user: 'alguien@gmail.com',
                 tipo_user: 'manager',
                 activo_user: true,
                 access_to_user: ['vacantes', 'usuarios'],
