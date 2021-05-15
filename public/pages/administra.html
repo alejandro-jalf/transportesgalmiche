@@ -270,7 +270,7 @@
                     </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
-                    <div v-if="!editandoPerfil" class="mt-4">
+                    <div v-if="!editandoPerfil" class="mt-4 ml-4">
                         <h5>Datos de tu perfil</h5>
                         <div class="datosPerfil mt-2">
                             <span class="font-weight-bold">Correo Electronico:</span>
@@ -287,6 +287,10 @@
                         <button class="btn btn-primary btnEditPErfil" type="button" @click="setEditandoPerfil(true)">
                             <span class="icofont-ui-edit"></span>
                             Editar perfil
+                        </button>
+                        <button class="btn btn-danger btnEditPErfil" type="button">
+                            <span class="icofont-close-circled"></span>
+                            Cerrar sesion
                         </button>
                     </div>
                     <div v-else>
