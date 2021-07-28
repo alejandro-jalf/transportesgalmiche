@@ -31,7 +31,7 @@
 }
 
 .nav-header {
-    height: 600px;
+    height: max-content;
     background: rgb(0, 112, 177);
     width: 100%;
     position: relative;
@@ -58,9 +58,7 @@
 }
 
 .img-banner {
-    position: absolute;
     width: 100%;
-    height: 100%;
     top: 0px;
     left: 0px;
 }
@@ -70,7 +68,7 @@
     z-index: 3;
     color: #fff;
     text-shadow: 0px 0px 5px #000;
-    top: 180px;
+    top: 10%;
     left: 0px;
     width: 100%;
     font-size: 60px;
@@ -79,7 +77,7 @@
 
 .container-logo {
     position: absolute;
-    top: 260px;
+    top: 30%;
     left: 0px;
     width: 100%;
     text-align: center;
@@ -88,12 +86,6 @@
 .img-logo {
     width: 16%;
 }
-
-/* .img-letras {
-    position: absolute;
-    width: 70%;
-    display: none;
-} */
 
 .nav-body {
     position: absolute;
@@ -112,62 +104,37 @@
 }
 
 @media screen and (max-width: 1000px) {
-    /* .img-letras {
-        width: 90%;
-    } */
     .letras-title {
         font-size: 55px;
+    }
+    .container-logo {
+        top: 35%;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .nav-header {
-        height: 450px;
-    }
-    /* .img-letras {
-        width: 100%;
-    } */
     .letras-title {
         font-size: 50px;
     }
 }
 
 @media screen and (max-width: 700px) {
-    .nav-header {
-        height: 400px;
-    }
     .letras-title {
-        top: 150px;
+        /* top: 150px; */
         font-size: 35px;
-    }
-    .container-logo {
-        top: 200px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .nav-header {
-        height: 350px;
-    }
     .letras-title {
         font-size: 30px;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .nav-header {
-        height: 300px;
-    }
     .letras-title {
         font-size: 25px;
-        top: 100px;
     }
-    .container-logo {
-        top: 140px;
-    }
-    /* .img-logo {
-        left: 15px;
-    } */
 }
 
 @media screen and (max-width: 400px) {
