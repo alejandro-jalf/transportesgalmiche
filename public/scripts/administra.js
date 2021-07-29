@@ -121,7 +121,7 @@ var appAdministra = new Vue({
     },
     mounted() {
         this.session = this.getSession();
-        //if (!this.session) window.location.href = './login.html';
+        if (!this.session) window.location.href = './login.html';
     },
     methods: {
         getSession() {

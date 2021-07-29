@@ -24,7 +24,16 @@ var applogin = new Vue({
             return this.recoveryPassword ? 'icofont-id' : 'icofont-business-man'
         },
     },
+    mounted() {
+        this.session = this.getSession();
+        if (this.session) window.location.href = './administra.html';
+    },
     methods: {
+        getSession() {
+            if (localStorage.getItem("SESSION_ADMINISTRACION"))
+                return localStorage.getItem("SESSION_ADMINISTRACION") == "true"
+            return false;
+        },
         setRecoveryPassword(recoveryPassword) {
             this.recoveryPassword = recoveryPassword
         },
@@ -50,11 +59,10 @@ var applogin = new Vue({
             return true;
         },
         async initSesion() {
-            console.log('Inicia sesion');
             if (this.validateData()) {
-                const urlApi = '';
+                const urlApi = 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/login';
                 try {
-                    const response = axios({
+                    const response = await axios({
                         method: 'post',
                         url: urlApi,
                         data: {
@@ -71,6 +79,8 @@ var applogin = new Vue({
                             'text-white',
                             'bg-success'
                         );
+                        localStorage.setItem("SESSION_ADMINISTRACION", true);
+                        window.location.href = './administra.html';
                     } else {
                         this.showAlertDialog(
                             response.data.message,
@@ -83,9 +93,9 @@ var applogin = new Vue({
                     $('#loading').hide();
                 } catch (error) {
                     console.log(error);
-                    if (error.response) {
+                    if (error.response.data) {
                         this.showAlertDialog(
-                            response.data.message,
+                            error.response.data.message,
                             'Error al iniciar sesion',
                             'text-white',
                             'bg-danger'

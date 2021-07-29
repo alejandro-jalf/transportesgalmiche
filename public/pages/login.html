@@ -11,13 +11,9 @@
         <link rel="stylesheet" href="../styles/main.css">
         <link rel="stylesheet" href="../styles/icofont/icofont.min.css">
         <link rel="stylesheet" href="../styles/login.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-
-        <div class="modal-dialog-centered" id="loading">
-            <img src="../images/loader3.gif" alt="">
-        </div>
-
         <img src="../images/arrow up.png" alt="" class="btnup">
         <div class="nav-header">
             <img src="../images/fondo v2.jpg" alt="" class="img-banner">
@@ -45,6 +41,10 @@
             </nav>
         </div>
         <div class="container" id="app">
+            <div class="modal-dialog-centered" id="loading">
+                <img src="../images/loader3.gif" alt="">
+            </div>
+
             <div class="logo-container">
                 <span class="logo-user" :class="iconSesion"></span>
             </div>
