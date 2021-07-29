@@ -118,7 +118,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="vacante.disponible">
                                     <label class="custom-control-label" for="customSwitch1">Vacante disponible</label>
                                 </div>
-                                <button type="button" class="btn btn-primary float-right" @click="createVacante()">
+                                <button type="button" class="btn btn-primary float-right" @click="createVacante(true)">
                                     <span class="icofont-check-circled"></span>
                                     {{ textButtonCreandoVacante }}
                                 </button>
@@ -287,7 +287,7 @@
                             <span class="icofont-ui-edit"></span>
                             Editar perfil
                         </button>
-                        <button class="btn btn-danger btnEditPErfil" type="button">
+                        <button class="btn btn-danger btnEditPErfil" type="button" @click="closeSession()">
                             <span class="icofont-close-circled"></span>
                             Cerrar sesion
                         </button>
@@ -318,7 +318,7 @@
                                 <span class="icofont-ui-close"></span>
                                 Cancelar
                             </button>
-                            <button class="btn btn-success" type="button">
+                            <button class="btn btn-success" type="button" @click="updatePerfil()">
                                 <span class="icofont-diskette"></span>
                                 Guardar Cambios
                             </button>
