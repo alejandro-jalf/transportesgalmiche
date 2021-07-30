@@ -80,6 +80,10 @@ var applogin = new Vue({
                             'bg-success'
                         );
                         localStorage.setItem("SESSION_ADMINISTRACION", true);
+                        localStorage.setItem(
+                            "SESSION_USER",
+                            JSON.stringify(response.data.data)
+                        );
                         window.location.href = './administra.html';
                     } else {
                         this.showAlertDialog(
