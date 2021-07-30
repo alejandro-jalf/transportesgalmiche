@@ -1,7 +1,5 @@
 window.addEventListener('load', function() {
 
-    $('#loading').hide();
-
     const btnUp = document.querySelector('.btnup');
 
     btnUp.addEventListener('click', function() {

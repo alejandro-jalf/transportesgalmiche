@@ -1,4 +1,5 @@
 window.addEventListener('load', function() {
+    $('#loading').hide();
     const nameemail = document.querySelector('#nameemail');
     const phoneemail = document.querySelector('#phoneemail');
     const emailEmail = document.querySelector('#emailEmail');

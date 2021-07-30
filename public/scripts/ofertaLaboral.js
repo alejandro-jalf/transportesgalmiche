@@ -64,6 +64,7 @@ var appOfertaLaboral = new Vue({
         },
     },
     mounted() {
+        $('#loading').hide();
         // Inicializa firebase
         // const firebaseConfig = this.userDataBase.data.firebaseConfig;
         // firebase.initializeApp(firebaseConfig);

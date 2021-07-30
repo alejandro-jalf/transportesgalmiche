@@ -27,6 +27,7 @@ var applogin = new Vue({
     mounted() {
         this.session = this.getSession();
         if (this.session) window.location.href = './administra.html';
+        $('#loading').hide();
     },
     methods: {
         getSession() {

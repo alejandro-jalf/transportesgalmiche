@@ -46,13 +46,13 @@
         </div>
         <div class="container" id="app">
             <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
+                <li v-if="accessThis('vacantes')" class="nav-item" role="presentation">
                     <a class="nav-link tab-options active" id="Vacantes-tab" data-toggle="tab" href="#Vacantes" role="tab" aria-controls="Vacantes" aria-selected="true">
                         <span class="icofont-list"></span>
                         Vacantes
                     </a>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li v-if="accessThis('usuarios')" class="nav-item" role="presentation">
                     <a class="nav-link tab-options" id="Usuarios-tab" data-toggle="tab" href="#Usuarios" role="tab" aria-controls="Usuarios" aria-selected="false">
                         <span class="icofont-ui-user-group"></span>
                         Usuarios
@@ -166,15 +166,17 @@
                                 </td>
                                 <td>{{ parseActivoUser(user.activo_user) }}</td>
                                 <td>
-                                    <button :class="getColorButton(user.activo_user)" class="btn btn-disponible" type="button" @click="updateActivoUser(user.correo_user, user.activo_user)">
-                                        <span :class="getIcon(user.activo_user)" class="span-diponible"></span>
-                                    </button>
-                                    <button class="btn btn-actions btn-warning" type="button" @click="viewUSer(user)">
-                                        <span class="span-actions icofont-ui-edit"></span>
-                                    </button>
-                                    <button class="btn btn-actions btn-danger" type="button" @click="deleteUser(user.correo_user)">
-                                        <span class="span-actions icofont-bin"></span>
-                                    </button>
+                                    <div v-if="user.correo_user !== correo_user_perfil">
+                                        <button :class="getColorButton(user.activo_user)" class="btn btn-disponible" type="button" @click="updateActivoUser(user.correo_user, user.activo_user)">
+                                            <span :class="getIcon(user.activo_user)" class="span-diponible"></span>
+                                        </button>
+                                        <button class="btn btn-actions btn-warning" type="button" @click="viewUSer(user)">
+                                            <span class="span-actions icofont-ui-edit"></span>
+                                        </button>
+                                        <button class="btn btn-actions btn-danger" type="button" @click="deleteUser(user.correo_user)">
+                                            <span class="span-actions icofont-bin"></span>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

@@ -1,4 +1,5 @@
 window.addEventListener('load', function() {
+    $('#loading').hide();
     const servicio_cobertura = document.querySelector('#servicio-cobertura');
     const servicio_flotilla = document.querySelector('#servicio-flotilla');
     const servicio_clientes = document.querySelector('#servicio-clientes');
