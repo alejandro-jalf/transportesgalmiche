@@ -118,7 +118,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="vacante.disponible">
                                     <label class="custom-control-label" for="customSwitch1">Vacante disponible</label>
                                 </div>
-                                <button type="button" class="btn btn-primary float-right" @click="createVacante(true)">
+                                <button type="button" class="btn btn-primary float-right" @click="createVacante()">
                                     <span class="icofont-check-circled"></span>
                                     {{ textButtonCreandoVacante }}
                                 </button>
@@ -273,15 +273,15 @@
                         <h5>Datos de tu perfil</h5>
                         <div class="datosPerfil mt-2">
                             <span class="font-weight-bold">Correo Electronico:</span>
-                            alguien@outlook.com
+                            {{ perfilUser.correo_user }}
                         </div>
                         <div class="datosPerfil mt-2">
                             <span class="font-weight-bold">Nombre Completo:</span>
-                            Alguien apellido_p apellido_m
+                            {{ perfilUser.nombre_user + ' ' + perfilUser.apellido_p_user + ' ' + perfilUser.apellido_m_user }}
                         </div>
                         <div class="datosPerfil mt-2">
                             <span class="font-weight-bold">Direccion:</span>
-                            Morelo #404 Acayucan, Veracruz
+                            {{ perfilUser.direccion_user }}
                         </div>
                         <button class="btn btn-primary btnEditPErfil" type="button" @click="setEditandoPerfil(true)">
                             <span class="icofont-ui-edit"></span>

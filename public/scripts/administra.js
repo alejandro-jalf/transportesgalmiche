@@ -16,18 +16,7 @@ var appAdministra = new Vue({
                 callBack: () => {},
             },
             // Vacantes
-            listVacantes: {
-                vacante1: {
-                    puesto_vacante: 'Vacante 1',
-                    requisitos_vacante: 'Vacante 1',
-                    disponible_vacante: true,
-                },
-                vacante2: {
-                    puesto_vacante: 'Vacante 2',
-                    requisitos_vacante: 'Vacante 2',
-                    disponible_vacante: false,
-                },
-            },
+            listVacantes: {},
             vacante_actual: '',
             vacante: {
                 name: '',
@@ -65,7 +54,6 @@ var appAdministra = new Vue({
                 access_to_user: [],
             },
             // Perfil
-            login: true,
             perfilUser: {
                 nombre_user: 'Alguien',
                 apellido_p_user: 'Martinez',
@@ -78,6 +66,7 @@ var appAdministra = new Vue({
             },
             editandoPerfil: false,
             session: false,
+            timeWait: 0,
         }
     },
     computed: {
@@ -122,11 +111,20 @@ var appAdministra = new Vue({
     mounted() {
         this.session = this.getSession();
         if (!this.session) window.location.href = './login.html';
+        this.loadVacantes();
     },
     methods: {
+        getDateNow() {
+            const date = new Date();
+            const fecha = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+            const hora = `${date.getHours()}:${date.getMinutes() + 1}:${date.getSeconds()}:${date.getMilliseconds()}`;
+            return fecha + ' ' + hora;
+        },
         getSession() {
-            if (localStorage.getItem("SESSION_ADMINISTRACION"))
+            if (localStorage.getItem("SESSION_ADMINISTRACION")) {
+                this.perfilUser = JSON.parse(localStorage.getItem("SESSION_USER"));
                 return localStorage.getItem("SESSION_ADMINISTRACION") == "true"
+            }
             return false;
         },
         parseDisponible(disponible) {
@@ -137,6 +135,59 @@ var appAdministra = new Vue({
         },
         getColorButton(disponible) {
             return disponible ? 'btn-success' : 'btn-danger'
+        },
+        loading(load = false) {
+            if (load) {
+                this.timeWait ++;
+                $('#loading').show(100);
+            }
+            else {
+                this.timeWait --;
+                if (this.timeWait <= 0) {
+                    $('#loading').hide(100);
+                    this.timeWait = 0;
+                }
+            }
+        },
+        async loadVacantes() {
+            try {
+                this.loading(true);
+                const response = await axios({
+                    method: 'get',
+                    url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes'
+                })
+                
+                if (response.data.success) {
+                    this.listVacantes = response.data.data.listVacantes;
+                } else {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Advertencia al cargar los usuarios',
+                        'text-white',
+                        'bg-warning'
+                    );
+                }
+                
+                this.loading(false);
+            } catch (error) {
+                console.log(error);
+                if (error.response) {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Error al cargar los usuarios',
+                        'text-white',
+                        'bg-danger'
+                    );
+                } else {
+                    this.showAlertDialog(
+                        'Error inesperado intentelo mas tarde',
+                        'Error al cargar los usuarios',
+                        'text-white',
+                        'bg-danger'
+                    );
+                }
+                this.loading(false);
+            }
         },
         setCreandoVacante(creando) {
             this.creandoVacante = creando;
@@ -192,7 +243,7 @@ var appAdministra = new Vue({
                     $('#loading').show(100);
                     const response = await axios({
                         method: 'delete',
-                        url: 'https://www.anySite.com/delete/' + vacante,
+                        url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes/' + vacante
                     })
                     
                     if (response.data.success) {
@@ -202,6 +253,7 @@ var appAdministra = new Vue({
                             'text-white',
                             'bg-success'
                         );
+                        this.loadVacantes();
                     } else {
                         this.showAlertDialog(
                             response.data.message,
@@ -212,7 +264,6 @@ var appAdministra = new Vue({
                     }
                     
                     $('#loading').hide(100);
-                    this.setCreandoVacante(false);
                 } catch (error) {
                     console.log(error);
                     if (error.response) {
@@ -247,7 +298,12 @@ var appAdministra = new Vue({
                     $('#loading').show(100);
                     const response = await axios({
                         method: 'put',
-                        url: 'https://www.anySite.com/delete/' + Vacante,
+                        url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes/' + Vacante + '/disponible',
+                        data: {
+                            disponible_vacante: !activoVacante,
+                            correo_user: this.perfilUser.correo_user,
+                            modificacion_vacante: this.getDateNow(),
+                        }
                     })
                     
                     if (response.data.success) {
@@ -267,7 +323,7 @@ var appAdministra = new Vue({
                     }
                     
                     $('#loading').hide(100);
-                    this.setCreandoVacante(false);
+                    this.loadVacantes();
                 } catch (error) {
                     console.log(error);
                     if (error.response) {
@@ -302,15 +358,22 @@ var appAdministra = new Vue({
             const messageError = (this.creandoVacante === 1) ?
                 'Error al intentar crear el puesto' :
                 'Error al intentar actualizar el puesto';
-            const urlApi = 'update/or/create';
+            const urlApi = (this.creandoVacante === 1) ?
+                'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes':
+                'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes/' + this.vacante.name;
+            const method = (this.creandoVacante === 1) ? 'post' : 'put';
             try {
                 const response = await axios({
-                    method: 'post',
+                    method,
                     url: urlApi,
                     data: {
                         puesto_vacante: this.vacante.name.trim(),
                         requisitos_vacante: this.vacante.requisitos.trim(),
                         disponible_vacante: this.vacante.disponible,
+                        creado_por_vacante: this.perfilUser.correo_user,
+                        alta_vacante: this.getDateNow(),
+                        modificado_por_vacante: this.perfilUser.correo_user,
+                        modificacion_vacante: this.getDateNow()
                     }
                 })
                 
@@ -322,6 +385,8 @@ var appAdministra = new Vue({
                         'text-white',
                         'bg-success'
                     );
+                    this.loadVacantes();
+                    this.setCreandoVacante(0);
                 } else {
                     this.showAlertDialog(
                         response.data.message,
@@ -332,7 +397,6 @@ var appAdministra = new Vue({
                 }
                 
                 $('#loading').hide();
-                this.setCreandoVacante(0);
             } catch (error) {
                 console.log(error);
                 if (error.response.data) {
@@ -350,7 +414,6 @@ var appAdministra = new Vue({
                         'bg-danger'
                     );
                 }
-                this.setCreandoVacante(0);
             }
         },
         // Users
