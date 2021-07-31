@@ -36,12 +36,16 @@ var appOfertaLaboral = new Vue({
                 enteraste_vacante: '',
                 otro: '',
                 curriculum: {},
-            }
+            },
+            vacantes_disponibles: 0,
         }
     },
     computed: {
+        thereAreVacancy() {
+            return this.vacantes_disponibles > 0;
+        },
         listRefactorVacante() {
-            return Object.keys(this.listVacantes)
+            return Object.keys(this.listVacantes);
         },
         puestoName() {
             if (this.puestoSelected === 'noSelected') return ''
@@ -68,8 +72,35 @@ var appOfertaLaboral = new Vue({
         // Inicializa firebase
         // const firebaseConfig = this.userDataBase.data.firebaseConfig;
         // firebase.initializeApp(firebaseConfig);
+        this.loadVacantes();
     },
     methods: {
+        async loadVacantes() {
+            try {
+                $('#loading').show();
+                const response = await axios({
+                    method: 'get',
+                    url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/vacantes/disponibles'
+                })
+                
+                if (response.data.success) {
+                    this.listVacantes = response.data.data.listVacantes;
+                    this.vacantes_disponibles = response.data.data.vacantes_disponibles;
+                } else {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Advertencia al cargar las vacantes',
+                        'text-white',
+                        'bg-warning'
+                    );
+                }
+                
+                $('#loading').hide();
+            } catch (error) {
+                console.log(error);
+                $('#loading').hide();
+            }
+        },
         uploadFiles(id_noticia = '/', source = 'images', file) {
             this.showLoading();
             const that = this;

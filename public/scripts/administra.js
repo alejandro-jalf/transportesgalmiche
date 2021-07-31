@@ -41,23 +41,28 @@ var appAdministra = new Vue({
                 access_to_user: [],
             },
             // Perfil
-            perfilUser: {
-                nombre_user: '',
-                apellido_p_user: '',
-                apellido_m_user: '',
-                direccion_user: '',
-                correo_user: '',
-                tipo_user: '',
-                activo_user: true,
-                access_to_user: [],
-            },
-            correo_user_perfil: '',
+            perfilUser: JSON.parse(localStorage.getItem("SESSION_USER")),
+            correo_user_perfil: (JSON.parse(localStorage.getItem("SESSION_USER"))).correo_user,
             editandoPerfil: false,
-            session: false,
+            session: localStorage.getItem("SESSION_ADMINISTRACION") == "true",
             timeWait: 0,
         }
     },
     computed: {
+        sortListVacantes() {
+            return Object.values(this.listVacantes).reduce((vacPrevious, vacancy) => {
+                vacPrevious[`${vacancy.puesto_vacante}`] = {}
+            }, {})
+        },
+        accessToUsers() {
+            return this.perfilUser.access_to_user.find((tabUser) => tabUser === 'usuarios')
+        },
+        accessToVacantes() {
+            return this.perfilUser.access_to_user.find((tabUser) => tabUser === 'vacantes')
+        },
+        isInvited() {
+            return this.perfilUser.tipo_user === 'invited';
+        },
         statusPassword() {
             if (this.userActual.password_user.trim().length <=  6) return 'is-invalid'
             const expresionLetters = new RegExp('[a-z]|[A-Z]')
@@ -97,15 +102,47 @@ var appAdministra = new Vue({
         },
     },
     mounted() {
-        this.session = this.getSession();
+        this.getDataPerfil();
+        //this.session = this.getSession();
         if (!this.session) window.location.href = './login.html';
         this.loadVacantes();
+        this.loadUsers();
     },
     methods: {
-        accessThis(tab = '') {
-            const findedTab =
-                this.perfilUser.access_to_user.find((tabUser) => tab === tabUser)
-            return (findedTab != undefined) ? true : false;
+        async getDataPerfil() {
+            try {
+                this.loading(true);
+                const response = await axios({
+                    method: 'get',
+                    url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/' + this.correo_user_perfil
+                })
+                
+                if (response.data.success) {
+                    localStorage.setItem(
+                        "SESSION_USER",
+                        JSON.stringify(response.data.data)
+                    );
+                }
+                this.loading(false);
+            } catch (error) {
+                console.log(error);
+                if (error.response.data) {
+                    this.showAlertDialog(
+                        error.response.data.message,
+                        'Error al cargar datos del perfil',
+                        'text-white',
+                        'bg-danger'
+                    );
+                } else {
+                    this.showAlertDialog(
+                        'Error inesperado intentelo mas tarde',
+                        'Error al cargar datos del perfil',
+                        'text-white',
+                        'bg-danger'
+                    );
+                }
+                this.loading(false);
+            }
         },
         getDateNow() {
             const date = new Date();
@@ -166,9 +203,9 @@ var appAdministra = new Vue({
                 this.loading(false);
             } catch (error) {
                 console.log(error);
-                if (error.response) {
+                if (error.response.data) {
                     this.showAlertDialog(
-                        response.data.message,
+                        error.response.data.message,
                         'Error al cargar las vacantes',
                         'text-white',
                         'bg-danger'
@@ -323,7 +360,7 @@ var appAdministra = new Vue({
                     console.log(error);
                     if (error.response) {
                         this.showAlertDialog(
-                            response.data.message,
+                            error.response.data.message,
                             'Error al intentar eliminar el usuario',
                             'text-white',
                             'bg-danger'
@@ -396,7 +433,7 @@ var appAdministra = new Vue({
                 console.log(error);
                 if (error.response.data) {
                     this.showAlertDialog(
-                        response.data.message,
+                        error.response.data.message,
                         messageError,
                         'text-white',
                         'bg-danger'
@@ -436,7 +473,7 @@ var appAdministra = new Vue({
                 console.log(error);
                 if (error.response) {
                     this.showAlertDialog(
-                        response.data.message,
+                        error.response.data.message,
                         'Error al cargar los usuarios',
                         'text-white',
                         'bg-danger'
@@ -558,7 +595,7 @@ var appAdministra = new Vue({
                     console.log(error);
                     if (error.response) {
                         this.showAlertDialog(
-                            response.data.message,
+                            error.response.data.message,
                             ' al cambiar el estatus del usuario',
                             'text-white',
                             'bg-danger'
@@ -693,7 +730,7 @@ var appAdministra = new Vue({
                 console.log(error);
                 if (error.response) {
                     this.showAlertDialog(
-                        response.data.message,
+                        error.response.data.message,
                         'Error al crear al usuario',
                         'text-white',
                         'bg-danger'
@@ -869,7 +906,7 @@ var appAdministra = new Vue({
                 console.log(error);
                 if (error.response.data) {
                     this.showAlertDialog(
-                        response.data.message,
+                        error.response.data.message,
                         'Error al actualizar el perfil',
                         'text-white',
                         'bg-danger'

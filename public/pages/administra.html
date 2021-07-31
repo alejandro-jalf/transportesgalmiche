@@ -46,13 +46,13 @@
         </div>
         <div class="container" id="app">
             <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-                <li v-if="accessThis('vacantes')" class="nav-item" role="presentation">
+                <li v-if="accessToVacantes" class="nav-item" role="presentation">
                     <a class="nav-link tab-options active" id="Vacantes-tab" data-toggle="tab" href="#Vacantes" role="tab" aria-controls="Vacantes" aria-selected="true">
                         <span class="icofont-list"></span>
                         Vacantes
                     </a>
                 </li>
-                <li v-if="accessThis('usuarios')" class="nav-item" role="presentation">
+                <li v-if="!isInvited && accessToUsers" class="nav-item" role="presentation">
                     <a class="nav-link tab-options" id="Usuarios-tab" data-toggle="tab" href="#Usuarios" role="tab" aria-controls="Usuarios" aria-selected="false">
                         <span class="icofont-ui-user-group"></span>
                         Usuarios
@@ -67,7 +67,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane tab-c fade show active" id="Vacantes" role="tabpanel" aria-labelledby="Vacantes-tab">
-                    <button v-if="creandoVacante === 0" type="button" class="btn btn-success mt-3" @click="setNewPuesto()">
+                    <button v-if="!isInvited && creandoVacante === 0" type="button" class="btn btn-success mt-3" @click="setNewPuesto()">
                         <span class="icofont-ui-add"></span>
                         Crear Puesto
                     </button>
@@ -86,13 +86,13 @@
                                 <td>{{ vacante.requisitos_vacante }}</td>
                                 <td>{{ parseDisponible(vacante.disponible_vacante) }}</td>
                                 <td>
-                                    <button :class="getColorButton(vacante.disponible_vacante)" class="btn btn-disponible" type="button" @click="changeStatusVacante(vacante.puesto_vacante, vacante.disponible_vacante)">
+                                    <button v-if="!isInvited" :class="getColorButton(vacante.disponible_vacante)" class="btn btn-disponible" type="button" @click="changeStatusVacante(vacante.puesto_vacante, vacante.disponible_vacante)">
                                         <span :class="getIcon(vacante.disponible_vacante)" class="span-diponible"></span>
                                     </button>
                                     <button class="btn btn-actions btn-warning" type="button" @click="viewVacante(vacante)">
                                         <span class="span-actions icofont-ui-edit"></span>
                                     </button>
-                                    <button class="btn btn-actions btn-danger" type="button" @click="deleteVacante(vacante.puesto_vacante)">
+                                    <button v-if="!isInvited" class="btn btn-actions btn-danger" type="button" @click="deleteVacante(vacante.puesto_vacante)">
                                         <span class="span-actions icofont-bin"></span>
                                     </button>
                                 </td>
@@ -118,7 +118,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="vacante.disponible">
                                     <label class="custom-control-label" for="customSwitch1">Vacante disponible</label>
                                 </div>
-                                <button type="button" class="btn btn-primary float-right" @click="createVacante()">
+                                <button v-if="!isInvited" type="button" class="btn btn-primary float-right" @click="createVacante()">
                                     <span class="icofont-check-circled"></span>
                                     {{ textButtonCreandoVacante }}
                                 </button>

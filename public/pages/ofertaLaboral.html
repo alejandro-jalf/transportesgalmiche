@@ -26,7 +26,6 @@
                 <img src="../images/logo 24-03-2021.png" alt="" class="img-logo">
             </div>
         
-            <!-- <img src="./images/letras.png" alt="" class="img-letras"> -->
             <div class="letras-title">
                 <div>Transportes Galmiche</div>
             </div>
@@ -47,12 +46,12 @@
         </div>
 
         <div class="container" id="app">
-            <div class="not-vacancy text-center pt-4">
+            <div v-if="!thereAreVacancy" class="not-vacancy text-center pt-4">
                 <h3>Por el momento todos nuestros puestos estan ocupados</h3>
                 <img src="../images/not_vacancy.jpg" alt="" width="100%">
             </div>
     
-            <div class="card" style="width: 90%; margin-left: 5%;">
+            <div v-else class="card mt-4" style="width: 90%; margin-left: 5%;">
                 <div class="card-body">
                     <h3 class="card-title">Vacante disponible</h3>
     
