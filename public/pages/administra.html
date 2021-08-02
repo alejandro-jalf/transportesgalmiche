@@ -81,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(vacante, indexVacante) in listVacantes" :key="indexVacante">
+                            <tr v-for="(vacante, indexVacante) in sortListVacantes" :key="indexVacante">
                                 <td>{{ vacante.puesto_vacante }}</td>
                                 <td>{{ vacante.requisitos_vacante }}</td>
                                 <td>{{ parseDisponible(vacante.disponible_vacante) }}</td>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="tab-pane tab-c fade" id="Usuarios" role="tabpanel" aria-labelledby="profile-tab">
-                    <button v-if="viewListUsers" type="button" class="btn btn-success mt-3" @click="setNewUsuario()">
+                    <button v-if="isManager && viewListUsers" type="button" class="btn btn-success mt-3" @click="setNewUsuario()">
                         <span class="icofont-ui-add"></span>
                         Agregar usuario
                     </button>
@@ -148,7 +148,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(user, indexVacante) in listUsers" :key="indexVacante">
+                            <tr v-for="(user, indexVacante) in sortListUsers" :key="indexVacante">
                                 <td>{{ `${user.nombre_user} ${user.apellido_p_user} ${user.apellido_m_user}` }}</td>
                                 <td>{{ user.direccion_user }}</td>
                                 <td>{{ user.correo_user }}</td>
@@ -167,13 +167,13 @@
                                 <td>{{ parseActivoUser(user.activo_user) }}</td>
                                 <td>
                                     <div v-if="user.correo_user !== correo_user_perfil">
-                                        <button :class="getColorButton(user.activo_user)" class="btn btn-disponible" type="button" @click="updateActivoUser(user.correo_user, user.activo_user)">
+                                        <button v-if="isManager" :class="getColorButton(user.activo_user)" class="btn btn-disponible" type="button" @click="updateActivoUser(user.correo_user, user.activo_user)">
                                             <span :class="getIcon(user.activo_user)" class="span-diponible"></span>
                                         </button>
                                         <button class="btn btn-actions btn-warning" type="button" @click="viewUSer(user)">
                                             <span class="span-actions icofont-ui-edit"></span>
                                         </button>
-                                        <button class="btn btn-actions btn-danger" type="button" @click="deleteUser(user.correo_user)">
+                                        <button v-if="isManager" class="btn btn-actions btn-danger" type="button" @click="deleteUser(user.correo_user)">
                                             <span class="span-actions icofont-bin"></span>
                                         </button>
                                     </div>
@@ -254,7 +254,7 @@
                                     <input type="checkbox" class="custom-control-input" id="switchActivoUser" v-model="userActual.activo_user">
                                     <label class="custom-control-label" for="switchActivoUser">Activo</label>
                                 </div>
-                                <button type="button" class="btn btn-primary float-right" @click="createUser()">
+                                <button v-if="isManager" type="button" class="btn btn-primary float-right" @click="createUser()">
                                     <span class="icofont-check-circled"></span>
                                     {{ textButtonCreandoUser }}
                                 </button>

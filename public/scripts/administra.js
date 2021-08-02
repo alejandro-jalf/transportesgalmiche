@@ -50,8 +50,17 @@ var appAdministra = new Vue({
     },
     computed: {
         sortListVacantes() {
-            return Object.values(this.listVacantes).reduce((vacPrevious, vacancy) => {
-                vacPrevious[`${vacancy.puesto_vacante}`] = {}
+            const keysVacancysOrder = Object.keys(this.listVacantes).sort();
+            return keysVacancysOrder.reduce((vacPrevious, vacancy) => {
+                vacPrevious[`${vacancy}`] = this.listVacantes[`${vacancy}`];
+                return vacPrevious;
+            }, {})
+        },
+        sortListUsers() {
+            const keysUsersOrder = Object.keys(this.listUsers).sort();
+            return keysUsersOrder.reduce((userAcum, user) => {
+                userAcum[`${user}`] = this.listUsers[`${user}`];
+                return userAcum;
             }, {})
         },
         accessToUsers() {
@@ -62,6 +71,9 @@ var appAdministra = new Vue({
         },
         isInvited() {
             return this.perfilUser.tipo_user === 'invited';
+        },
+        isManager() {
+            return this.perfilUser.tipo_user === 'manager';
         },
         statusPassword() {
             if (this.userActual.password_user.trim().length <=  6) return 'is-invalid'

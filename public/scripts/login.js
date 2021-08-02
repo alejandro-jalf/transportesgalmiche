@@ -60,59 +60,117 @@ var applogin = new Vue({
             return true;
         },
         async initSesion() {
-            if (this.validateData()) {
-                const urlApi = 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/login';
-                try {
-                    const response = await axios({
-                        method: 'post',
-                        url: urlApi,
-                        data: {
-                            correo_user: this.user.trim(),
-                            password_user: this.password.trim(),
-                        }
-                    })
-                    
-                    $('#loading').hide();
-                    if (response.data.success) {
-                        this.showAlertDialog(
-                            response.data.message,
-                            'Exito al iniciar sesion',
-                            'text-white',
-                            'bg-success'
-                        );
-                        localStorage.setItem("SESSION_ADMINISTRACION", true);
-                        localStorage.setItem(
-                            "SESSION_USER",
-                            JSON.stringify(response.data.data)
-                        );
-                        window.location.href = './administra.html';
-                    } else {
-                        this.showAlertDialog(
-                            response.data.message,
-                            'Advertencia  al iniciar sesion',
-                            'text-white',
-                            'bg-warning'
-                        );
+            if (!this.validateData()) return false;
+            const urlApi = 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/login';
+            try {
+                $('#loading').show();
+                const response = await axios({
+                    method: 'post',
+                    url: urlApi,
+                    data: {
+                        correo_user: this.user.trim(),
+                        password_user: this.password.trim(),
                     }
-                    
-                    $('#loading').hide();
-                } catch (error) {
-                    console.log(error);
-                    if (error.response.data) {
-                        this.showAlertDialog(
-                            error.response.data.message,
-                            'Error al iniciar sesion',
-                            'text-white',
-                            'bg-danger'
-                        );
-                    } else {
-                        this.showAlertDialog(
-                            'Error inesperado intentelo mas tarde',
-                            'Error al iniciar sesion',
-                            'text-white',
-                            'bg-danger'
-                        );
+                })
+                
+                if (response.data.success) {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Exito al iniciar sesion',
+                        'text-white',
+                        'bg-success'
+                    );
+                    localStorage.setItem("SESSION_ADMINISTRACION", true);
+                    localStorage.setItem(
+                        "SESSION_USER",
+                        JSON.stringify(response.data.data)
+                    );
+                    window.location.href = './administra.html';
+                } else {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Advertencia  al iniciar sesion',
+                        'text-white',
+                        'bg-warning'
+                    );
+                }
+                
+                $('#loading').hide();
+            } catch (error) {
+                $('#loading').hide();
+                console.log(error);
+                if (error.response.data) {
+                    this.showAlertDialog(
+                        error.response.data.message,
+                        'Error al iniciar sesion',
+                        'text-white',
+                        'bg-danger'
+                    );
+                } else {
+                    this.showAlertDialog(
+                        'Error inesperado intentelo mas tarde',
+                        'Error al iniciar sesion',
+                        'text-white',
+                        'bg-danger'
+                    );
+                }
+            }
+        },
+        validateDataRecovery() {
+            if (this.emailForRecovery.trim() === '') {
+                this.showAlertDialog('Necesita ingresar un correo electronico')
+                return false;
+            }
+            return true;
+        },
+        async recoveryCount() {
+            if (!this.validateDataRecovery()) return false;
+            const urlApi = 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/' + this.emailForRecovery + '/recovery';
+            try {
+                $('#loading').show();
+                const response = await axios({
+                    method: 'put',
+                    url: urlApi,
+                    data: {
+                        correo_user: this.emailForRecovery.trim()
                     }
+                })
+                
+                if (response.data.success) {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Se ha enviado codigo de recuperacion',
+                        'text-white',
+                        'bg-success'
+                    );
+                    this.setRecoveryPassword(false);
+                } else {
+                    this.showAlertDialog(
+                        response.data.message,
+                        'Advertencia al recuperar cuenta',
+                        'text-white',
+                        'bg-warning'
+                    );
+                }
+                
+                $('#loading').hide();
+            } catch (error) {
+                $('#loading').hide();
+                console.log(error);
+                if (error.response.data) {
+                    this.showAlertDialog(
+                        error.response.data.message,
+                        'Error al recuperar cuenta',
+                        'text-white',
+                        'bg-danger'
+                    );
+                } else {
+                    this.showAlertDialog(
+                        'Error inesperado intentelo mas tarde',
+                        'Error al recuperar cuenta',
+                        'text-white',
+                        'bg-danger'
+                    );
                 }
             }
         },
