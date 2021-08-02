@@ -87,12 +87,24 @@ const Usuarios = (() => {
         if (!existUser.success) {
             return createResponse(200, existUser);
         }
-
-        if (existUser.data.password_user !== encriptData(bodyLogin.password_user)) {
-            return createResponse(
-                401,
-                createContentError("La contraseña es incorrecta", {})
-            );
+        
+        if (existUser.data.recovery_code_user === 'empty') {
+            if (existUser.data.password_user !== encriptData(bodyLogin.password_user)) {
+                return createResponse(
+                    401,
+                    createContentError("Contraseña actual incorrecta", {})
+                );
+            }
+        } else {
+            if (
+                existUser.data.password_user !== encriptData(bodyLogin.password_user) &&
+                existUser.data.recovery_code_user !== bodyLogin.password_user
+            ) {
+                return createResponse(
+                    401,
+                    createContentError("Codigo de seguridad y contraseña actual incorrecta", {})
+                );
+            }
         }
 
         if (!existUser.data.activo_user) {
