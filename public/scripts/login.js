@@ -23,6 +23,9 @@ var applogin = new Vue({
         iconSesion() {
             return this.recoveryPassword ? 'icofont-id' : 'icofont-business-man'
         },
+        textCard() {
+            return this.recoveryPassword ? 'Recuperando cuenta' : 'Iniciando sesion'
+        },
     },
     mounted() {
         this.session = this.getSession();

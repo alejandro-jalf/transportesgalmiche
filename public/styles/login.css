@@ -1,12 +1,18 @@
+.cardSesion {
+    max-width: 800px;
+    margin: auto;
+}
+
 .logo-container {
     text-align: center;
-    height: 280px;
+    height: 180px;
     padding-top: 40px;
     margin-top: 5%;
+    /* background: #000; */
 }
 
 .logo-user {
-    font-size: 200px;
+    font-size: 100px;
     border: 2px solid #000;
     border-radius: 100%;
     padding: 30px;
