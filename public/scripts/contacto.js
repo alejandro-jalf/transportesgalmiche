@@ -8,7 +8,6 @@ window.addEventListener('load', function() {
     const contentModal = document.querySelector('#contentModal');
     const textHeaderModal = document.querySelector('#textHeaderModal');
     const headerModal = document.querySelector('#headerModal');
-    const urlApi = 'https://';
     
     let textName = '';
     let textPhone = '';
@@ -49,10 +48,10 @@ window.addEventListener('load', function() {
         return true;
     };
 
-    const sendMail = () => {
-        $('#loading').show();
-
+    const sendMail = () => {        
+        const urlApi = 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/requestInformation';
         if (isValidDataMail()) {
+            $('#loading').show();
             axios({
                 method: 'post',
                 url: urlApi,
@@ -86,7 +85,7 @@ window.addEventListener('load', function() {
                 $('#loading').hide();
             })
             .catch(function(error) {
-                console.log(error);
+                $('#loading').hide();
                 headerModal.classList.remove("bg-warning");
                 headerModal.classList.remove("bg-info");
                 headerModal.classList.add("bg-danger");
@@ -98,12 +97,7 @@ window.addEventListener('load', function() {
                 } else {
                     showMessage('No se puedo enviar el correo intentelo mas tarde');
                 }
-
-                $('#loading').hide();
             });
-        } else {
-            console.log('Entro aca');
-            $('#loading').hide();
         }
     };
 
