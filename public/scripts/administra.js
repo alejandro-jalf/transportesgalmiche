@@ -46,6 +46,11 @@ var appAdministra = new Vue({
             editandoPerfil: false,
             session: localStorage.getItem("SESSION_ADMINISTRACION") == "true",
             timeWait: 0,
+            changePassword: {
+                old: '',
+                new: '',
+                newRepeat: '',
+            },
         }
     },
     computed: {
@@ -93,6 +98,24 @@ var appAdministra = new Vue({
             ) return 'is-invalid'
             return 'is-valid'
         },
+        statusNewPassword() {
+            if (this.changePassword.new.trim().length <=  6) return 'is-invalid'
+            const expresionLetters = new RegExp('[a-z]|[A-Z]')
+            const expresionNumbers = new RegExp('\\d+')
+
+            if (
+                !expresionLetters.test(this.changePassword.new) ||
+                !expresionNumbers.test(this.changePassword.new)
+            ) return 'is-invalid'
+            return 'is-valid'
+        },
+        statusNewPasswordRepeat() {
+            if (
+                this.changePassword.new.trim() !==
+                this.changePassword.newRepeat.trim()
+            ) return 'is-invalid'
+            return 'is-valid'
+        },
         viewListUsers() {
             return (this.creandoUser === 0)
         },
@@ -115,7 +138,6 @@ var appAdministra = new Vue({
     },
     mounted() {
         this.getDataPerfil();
-        //this.session = this.getSession();
         if (!this.session) window.location.href = './login.html';
         this.loadVacantes();
         this.loadUsers();
@@ -932,6 +954,81 @@ var appAdministra = new Vue({
                     );
                 }
             }
+        },
+        validateDataPassword() {
+            if (this.changePassword.old.trim() === '') {
+                this.showAlertDialog('Se requiere de la contraseña actual o codigo de seguridad')
+                return false;
+            }
+            if (this.statusNewPassword === 'is-invalid') {
+                this.showAlertDialog('Formato de la contraseña incorrecta')
+                return false;
+            }
+            if (this.statusNewPasswordRepeat === 'is-invalid') {
+                this.showAlertDialog('Las contraseñas no coinciden')
+                return false;
+            }
+            return true;
+        },
+        newPassword() {
+            if (!this.validateDataPassword()) return false;
+            const callBack = async () => {
+                try {
+                    this.loading(true)
+                    const response = await axios({
+                        method: 'put',
+                        url: 'https://us-central1-transportesgalmiche-b4833.cloudfunctions.net/api/v1/usuarios/' + this.correo_user_perfil + '/password',
+                        data: {
+                            password_user: this.changePassword.old,
+                            new_password_user: this.changePassword.new,
+                        }
+                    })
+                    
+                    if (response.data.success) {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Exito',
+                            'text-white',
+                            'bg-success'
+                        );
+                        this.closeSession();
+                    } else {
+                        this.showAlertDialog(
+                            response.data.message,
+                            'Advertencia al intentar Cambiar su contraseña',
+                            'text-white',
+                            'bg-warning'
+                        );
+                    }
+                    
+                    this.loading(false);
+                } catch (error) {
+                    this.loading(false);
+                    console.log(error);
+                    if (error.response) {
+                        this.showAlertDialog(
+                            error.response.data.message,
+                            'Error al intentar Cambiar su contraseña',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    } else {
+                        this.showAlertDialog(
+                            'Error inesperado intentelo mas tarde',
+                            'Error al intentar Cambiar su contraseña',
+                            'text-white',
+                            'bg-danger'
+                        );
+                    }
+                }
+            }
+            this.showAlertOptionsDialog(
+                '¿Quiere actulizar su contraseña?',
+                'Cambiando contraseña',
+                'bg-warning',
+                'text-white',
+                callBack
+            )
         },
     },
 })
