@@ -16,10 +16,6 @@
     <body>
         <img src="../images/arrow up.png" alt="" class="btnup">
 
-        <div class="modal-dialog-centered" id="loading">
-            <img src="../images/loader3.gif" alt="">
-        </div>
-
         <div class="nav-header">
             <img src="../images/fondo v2.jpg" alt="" class="img-banner">
             <div class="container-logo">
@@ -46,6 +42,17 @@
         </div>
 
         <div class="container" id="app">
+
+            <div class="modal-dialog-centered" id="loading">
+                <img src="../images/loader3.gif" alt="">
+                <div v-if="viewProgressBar" class="container-progress">
+                    <div class="title-progress">Subiendo curriculum</div>
+                    <div class="progress uploadFiles">
+                        <div id="progress-main" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+
             <div v-if="!thereAreVacancy" class="not-vacancy text-center pt-4">
                 <h3>Por el momento todos nuestros puestos estan ocupados</h3>
                 <img src="../images/not_vacancy.jpg" alt="" width="100%">
@@ -175,13 +182,33 @@
                         <p class="mt-4">Subir curriculum (*opcional)</p>
                         <div class="custom-file">
                             <label for="inputCurriculum" class="custom-file-label">{{ nameFile }}</label>
-                            <input @change="onFileSelected" id="inputCurriculum" class="custom-file-input" type="file">
+                            <input @change="onFileSelected" id="inputCurriculum" class="custom-file-input" type="file" accept="application/pdf">
                         </div>
         
-                        <button class="btn btn-success float-right mt-4" type="button">
+                        <button class="btn btn-success float-right mt-4" type="button" @click="startSend()">
                             <img src="../images/icon_Airplane.png" alt="" width="40px">
                             Enviar mi postulacion
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalAdministra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" :class="alertDialog.headerColor + ' ' + alertDialog.headerBackground">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ alertDialog.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ alertDialog.message }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,6 +257,11 @@
         </div>
     </div>
     
+        <!-- Carga de firebase -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-analytics.js"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->

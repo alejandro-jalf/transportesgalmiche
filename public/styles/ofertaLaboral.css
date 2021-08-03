@@ -2,6 +2,31 @@
     font-size: 25px;
 }
 
+.container-progress {
+    position: fixed;
+    top: 60%;
+    width: 90%;
+    left: 5%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.title-progress {
+    font-size: 26px;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.uploadFiles {
+    width: 100%;
+    background: rgb(233, 233, 233);
+}
+
+.progress-main {
+    width: 70%;
+}
+
 @media screen and (max-width: 767px) {
     .card-title, .alert-heading {
         font-size: 22px;
