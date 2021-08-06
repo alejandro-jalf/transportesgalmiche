@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../styles/main.css">
         <link rel="stylesheet" href="../styles/servicios.css">
     </head>
@@ -104,40 +105,51 @@
             </div>
         </div>
 
-        <div class="flotilla">
-            <div class="title-flotilla"> Flotilla </div>
-            <div class="card item-flotilla">
-                <img src="../images/tortons v1.png" alt="" class="img-flotilla-item">
-                <div class="division-flotilla"></div>
-                <div class="descripcion-flotilla"> 6 Torton 15 ton. </div>
-                <!-- <div class="especificaciones-flotilla"> 2.40m x 2.35m x 7.90m </div> -->
+        <div id="appServicio">
+            <div class="flotilla">
+                <div class="title-flotilla"> Flotilla </div>
+                <div class="card item-flotilla"  @click="viewImage(listTorton)">
+                    <img src="../images/flotilla 4.jpg" alt="" class="img-flotilla-item">
+                    <div class="division-flotilla"></div>
+                    <div class="descripcion-flotilla"> Torton 15 ton. </div>
+                </div>
+                <div class="card item-flotilla">
+                    <img src="../images/camionestas v1.png" alt="" class="img-flotilla-item">
+                    <div class="division-flotilla"></div>
+                    <div class="descripcion-flotilla"> Camionetas 3.5 ton. </div>
+                </div>
+                <div class="card item-flotilla">
+                    <img src="../images/plataforma v1.png" alt="" class="img-flotilla-item">
+                    <div class="division-flotilla"></div>
+                    <div class="descripcion-flotilla"> Plataforma 3.5 ton. </div>
+                </div>
+                <div class="card item-flotilla" @click="viewImage(listCamioneta1)">
+                    <img src="../images/flotilla 1.png" alt="" class="img-flotilla-item">
+                    <div class="division-flotilla"></div>
+                    <div class="descripcion-flotilla"> Camioneta 1 ton. </div>
+                </div>
+                <div class="card item-flotilla"  @click="viewImage(listAuto)">
+                    <img src="../images/flotilla 2.jpg" alt="" class="img-flotilla-item">
+                    <div class="division-flotilla"></div>
+                    <div class="descripcion-flotilla"> Autos utilitarios </div>
+                </div>
             </div>
-            <div class="card item-flotilla">
-                <img src="../images/camionestas v1.png" alt="" class="img-flotilla-item">
-                <div class="division-flotilla"></div>
-                <div class="descripcion-flotilla"> 5 Camionetas 3.5 ton. </div>
-                <!-- <div class="especificaciones-flotilla"> 2.35m x 4.0m x 2.0m </div> -->
-            </div>
-            <div class="card item-flotilla">
-                <img src="../images/plataforma v1.png" alt="" class="img-flotilla-item">
-                <div class="division-flotilla"></div>
-                <div class="descripcion-flotilla"> Plataforma 3.5 ton. </div>
-                <!-- <div class="especificaciones-flotilla"> 2.40m x 7.0m. </div> -->
-            </div>
-            <div class="card item-flotilla">
-                <img src="../images/camioneta v1.png" alt="" class="img-flotilla-item">
-                <div class="division-flotilla"></div>
-                <div class="descripcion-flotilla"> Camioneta 1 ton. </div>
-                <!-- <div class="especificaciones-flotilla"> 1.70m x 2.50m x 1.40m. </div> -->
-            </div>
-            <div class="card item-flotilla">
-                <img src="../images/autos.png" alt="" class="img-flotilla-item">
-                <div class="division-flotilla"></div>
-                <div class="descripcion-flotilla"> Autos utilitarios </div>
-                <!-- <div class="especificaciones-flotilla"> Sin especificacion </div> -->
+        
+            <div v-if="visibleImage" class="background-view-gallery">
+                <img class="btnArrow left" src="../images/left.png" alt="" @click="leftImage()">
+                <img class="btnArrow right" src="../images/right.png" alt="" @click="rightImage()">
+                <div class="close-view-gallery" @click="closeViewImage()"><span class="span-close">x</span></div>
+                <div class="container-view-gallery">
+                    <img class="item-view-gallery" :class="orientation" :src="urlActual" alt="">
+                </div>
+                <div class="positionImage">{{ actualImage }}</div>
+                <div class="container-position">
+                    <button class="btn" :class="verticalSelected" type="button" @click="changeOrientation(0)">Vertical</button>
+                    <button class="btn" :class="horizontalSelected" type="button" @click="changeOrientation(1)">Horizontal</button>
+                </div>
             </div>
         </div>
-
+        
         <div class="clientes">
             <div class="title-clientes"> Sectores Principales </div>
             <div class="item-clientes card">
@@ -159,32 +171,6 @@
             <div class="item-clientes card">
                 <img src="../images/sectores/sConstruccion.jpg" alt="" class="img-cliente-item">
                 <div class="name-cliente"> De Construcción</div>
-            </div>
-            
-            <div class="title-clientes"> Tipos de cargas </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cEmbalaje.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> Embalaje </div>
-            </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cSuelta.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> Suelta </div>
-            </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cConsolidada.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> Consolidada </div>
-            </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cPaletizada.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> Paletizada </div>
-            </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cAgranel.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> A granel </div>
-            </div>
-            <div class="item-clientes card">
-                <img src="../images/sectores/cEspecial.jpg" alt="" class="img-cliente-item">
-                <div class="name-cliente"> Especial </div>
             </div>
         </div>
         
@@ -212,11 +198,15 @@
             </div>
         </footer>
 
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="../scripts/main.js"></script>
         <script src="../scripts/servicios.js"></script>
+        <script src="../scripts/servicioapp.js"></script>
     </body>
 </html>

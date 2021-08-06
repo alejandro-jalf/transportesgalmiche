@@ -106,10 +106,15 @@
 }
 
 .item-flotilla {
+    cursor: pointer;
     width: 30%;
     padding: 2%;
     margin: 1%;
     display: inline-block;
+}
+
+.item-flotilla:hover > .img-flotilla-item {
+    width: 98%;
 }
 
 .img-flotilla-item {
@@ -165,6 +170,114 @@
 .name-cliente {
     margin-bottom: 10px;
 }
+
+.background-view-gallery {
+    z-index: 10;
+    /* display: none; */
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.527);
+}
+
+.btnArrow {
+    cursor: pointer;
+    height: 40px;
+    position: fixed;
+    top: calc(50% - 20px);
+    z-index: 15;
+}
+
+.btnArrow:hover {
+    height: 46px;
+    top: calc(50% - 23px);
+}
+
+.left {
+    left: 8%;
+    right: 8%;
+}
+
+.right {
+    right: 8%;
+}
+
+.positionImage {
+    position: absolute;
+    bottom: calc(12% - 10px);
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    left: 50%;
+    background: #fff;
+    z-index: 14;
+}
+
+.container-view-gallery {
+    position: relative;
+    margin: auto;
+    margin-top: 3%;
+    width: 90%;
+    height: 88%;
+    background: rgba(17, 17, 17, 0.87);
+    padding: 10px;
+    overflow: auto;
+    text-align: center;
+}
+
+.close-view-gallery {
+    cursor: pointer;
+    top: 10px;
+    right: 20px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #fff;
+    background: #000;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    z-index: 13;
+}
+
+.close-view-gallery:hover {
+    color: #000;
+    background: #fff;
+    border: 2px solid #000;
+}
+
+.span-close {
+    position: absolute;
+    top: -12px;
+    left: 8px;
+}
+
+.item-view-gallery {
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 12;
+}
+
+.container-position {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.orientationVertical {
+    width: 100%;
+    height: auto;
+}
+.orientationHorizontal {
+    height: 100%;
+    width: auto;
+}
+
 
 @media screen and (max-width: 1200px) {
     .img-cobertura {
