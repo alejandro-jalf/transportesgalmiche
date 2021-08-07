@@ -270,8 +270,13 @@
 }
 
 .orientationVertical {
-    width: 100%;
+    width: calc(100% - 20px);
     height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
 }
 .orientationHorizontal {
     height: 100%;
