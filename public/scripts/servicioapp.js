@@ -1,67 +1,61 @@
-if (!localStorage.getItem('POSITION_ACTUAL'))
-    localStorage.setItem('POSITION_ACTUAL', '1')
-
 var servicioApp = new Vue({
     el: "#appServicio",
     data() {
         return {
-            POSITION_VERTICAL: 0,
-            POSITION_HORIZONTAL: 1,
             positionImage: -1,
-            positionActual: parseInt(localStorage.getItem('POSITION_ACTUAL')),
             newPosition: -1,
             actualImage: '1/21',
             imageActual: '',
             urlActual: '',
-            visibleImage: false,
             listTorton: [
-                'torton (1).jpeg',
-                'torton (2).jpeg',
-                'torton (3).jpeg',
-                'torton (4).jpeg',
-                'torton (5).jpeg',
-                'torton (6).jpeg',
-                'torton (7).jpeg',
-                'torton (8).jpeg',
-                'torton (9).jpeg',
-                'torton (10).jpeg',
-                'torton (11).jpeg',
-                'torton (12).jpeg'
+                'torton1.jpg',
+                'torton2.jpg',
+                'torton3.jpg',
+                'torton4.jpg',
+                'torton5.jpg',
+                'torton6.jpg',
+                'torton7.jpg',
+                'torton8.jpg',
+                'torton9.jpg',
+                'torton10.jpg',
+                'torton11.jpg'
             ],
             listAuto: [
-                'auto (1).jpeg',
-                'auto (2).jpeg',
-                'auto (3).jpeg',
-                'auto (4).jpeg'
+                'auto1.jpg',
+                'auto2.jpg',
+                'auto3.jpg',
+                'auto4.jpg'
             ],
             listCamioneta1: [
-                'camioneta1ton (1).jpeg',
-                'camioneta1ton (2).jpeg',
-                'camioneta1ton (3).jpeg',
-                'camioneta1ton (4).jpeg',
-                'camioneta1ton (5).jpeg',
+                'camioneta1.jpg',
+                'camioneta2.jpg',
+                'camioneta3.jpg',
+                'camioneta4.jpg',
+                'camioneta5.jpg',
             ],
             listImages: [],
         }
     },
-    computed: {
-        verticalSelected() {
-            if (this.positionActual === this.POSITION_VERTICAL) return 'btn-primary'
-            return '';
-        },
-        horizontalSelected() {
-            if (this.positionActual === this.POSITION_HORIZONTAL) return 'btn-primary'
-            return '';
-        },
-        orientation() {
-            if (this.positionActual === this.POSITION_HORIZONTAL) return 'orientationHorizontal'
-            return 'orientationVertical';
-        },
-    },
     mounted() {
-        console.log(this.positionActual);
+        const that = this;
+        window.addEventListener('resize', function(evt) {
+            that.setMarginImage();
+        })
     },
     methods: {
+        setMarginImage() {
+            const image = document.getElementById('img-view-gallery');
+            const container = document.getElementById('continer-gallery');
+            const positionImage = document.getElementById('positionImage');
+            if (image && container) {
+                const left = (container.clientWidth - positionImage.clientWidth) / 2;
+                const marginTopContainer = (window.innerHeight - container.clientHeight) / 2;
+                const marginTop = (container.clientHeight - image.clientHeight) / 2;
+                image.style.marginTop = parseInt(marginTop) + 'px';
+                container.style.marginTop = parseInt(marginTopContainer) + 'px';
+                positionImage.style.left = left + 'px';
+            }
+        },
         getUrl(image = '') {
             return './images/gallery/' + image;
         },
@@ -77,15 +71,12 @@ var servicioApp = new Vue({
             else this.newPosition = this.listImages.length - 1;
             this.setImage(this.listImages[this.newPosition]);
         },
-        changeOrientation(positon = -1) {
-            this.positionActual = positon;
-            localStorage.setItem('POSITION_ACTUAL', this.positionActual.toString());
-        },
         openViewImage() {
-            this.visibleImage = !this.visibleImage;
+            const that = this;
+            $('#galleryAll').fadeIn(500, that.setMarginImage)
         },
         closeViewImage() {
-            this.visibleImage = false;
+            $('#galleryAll').fadeOut(400)
         },
         setImage(src) {
             this.urlActual = '../images/gallery/' + src;

@@ -135,17 +135,13 @@
                 </div>
             </div>
         
-            <div v-if="visibleImage" class="background-view-gallery">
+            <div id="galleryAll" class="background-view-gallery">
                 <img class="btnArrow left" src="../images/left.png" alt="" @click="leftImage()">
                 <img class="btnArrow right" src="../images/right.png" alt="" @click="rightImage()">
-                <div class="close-view-gallery" @click="closeViewImage()"><span class="span-close">x</span></div>
-                <div class="container-view-gallery">
-                    <img class="item-view-gallery" :class="orientation" :src="urlActual" alt="">
-                </div>
-                <div class="positionImage">{{ actualImage }}</div>
-                <div class="container-position">
-                    <button class="btn" :class="verticalSelected" type="button" @click="changeOrientation(0)">Vertical</button>
-                    <button class="btn" :class="horizontalSelected" type="button" @click="changeOrientation(1)">Horizontal</button>
+                <div class="container-view-gallery" id="continer-gallery">
+                    <div class="close-view-gallery" @click="closeViewImage()"><span class="span-close">x</span></div>
+                    <img id="img-view-gallery" class="img-fluid" :src="urlActual" alt="">
+                    <div id="positionImage" class="positionImage">{{ actualImage }}</div>
                 </div>
             </div>
         </div>
