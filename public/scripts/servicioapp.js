@@ -78,15 +78,27 @@ var servicioApp = new Vue({
         closeViewImage() {
             $('#galleryAll').fadeOut(400)
         },
-        setImage(src) {
-            this.urlActual = '../images/gallery/' + src;
-            this.imageActual = src;
-            this.positionImage = this.getPostionImageActual();
-            this.actualImage = (this.positionImage + 1) + '/' + this.listImages.length;
+        setImage(src, from = 'change') {
+            if (from === 'change') {
+                const imageView = document.getElementById('img-view-gallery');
+                imageView.style.opacity = "0";
+                setTimeout(() => {
+                    this.urlActual = '../images/gallery/' + src;
+                    this.imageActual = src;
+                    imageView.style.opacity = "1";
+                    this.positionImage = this.getPostionImageActual();
+                    this.actualImage = (this.positionImage + 1) + '/' + this.listImages.length;
+                }, 500);
+            } else {
+                this.urlActual = '../images/gallery/' + src;
+                this.imageActual = src;
+                this.positionImage = this.getPostionImageActual();
+                this.actualImage = (this.positionImage + 1) + '/' + this.listImages.length;
+            }
         },
         viewImage(listImages) {
             this.listImages = listImages;
-            this.setImage(listImages[0]);
+            this.setImage(listImages[0], 'init');
             this.openViewImage();
         },
         getPostionImageActual() {

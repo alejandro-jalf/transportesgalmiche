@@ -140,7 +140,7 @@
                 <img class="btnArrow right" src="../images/right.png" alt="" @click="rightImage()">
                 <div class="container-view-gallery" id="continer-gallery">
                     <div class="close-view-gallery" @click="closeViewImage()"><span class="span-close">x</span></div>
-                    <img id="img-view-gallery" class="img-fluid" :src="urlActual" alt="">
+                    <img id="img-view-gallery" class="img-fluid fade-class" :src="urlActual" alt="" key="item1">
                     <div id="positionImage" class="positionImage">{{ actualImage }}</div>
                 </div>
             </div>
