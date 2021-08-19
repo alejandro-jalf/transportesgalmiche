@@ -69,7 +69,7 @@ var servicioApp = new Vue({
             this.positionImage = this.getPostionImageActual();
             if (this.positionImage > 0) this.newPosition = this.positionImage - 1;
             else this.newPosition = this.listImages.length - 1;
-            this.setImage(this.listImages[this.newPosition], 'nada');
+            this.setImage(this.listImages[this.newPosition]);
         },
         openViewImage() {
             const that = this;
