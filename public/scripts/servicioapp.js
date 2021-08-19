@@ -69,7 +69,7 @@ var servicioApp = new Vue({
             this.positionImage = this.getPostionImageActual();
             if (this.positionImage > 0) this.newPosition = this.positionImage - 1;
             else this.newPosition = this.listImages.length - 1;
-            this.setImage(this.listImages[this.newPosition]);
+            this.setImage(this.listImages[this.newPosition], 'nada');
         },
         openViewImage() {
             const that = this;
@@ -80,15 +80,16 @@ var servicioApp = new Vue({
         },
         setImage(src, from = 'change') {
             if (from === 'change') {
+                const that = this;
                 const imageView = document.getElementById('img-view-gallery');
                 imageView.style.opacity = "0";
                 setTimeout(() => {
-                    this.urlActual = '../images/gallery/' + src;
-                    this.imageActual = src;
+                    that.urlActual = '../images/gallery/' + src;
+                    that.imageActual = src;
                     imageView.style.opacity = "1";
-                    this.positionImage = this.getPostionImageActual();
-                    this.actualImage = (this.positionImage + 1) + '/' + this.listImages.length;
-                }, 500);
+                }, 150);
+                this.positionImage = this.getPostionImageActual();
+                this.actualImage = (this.positionImage + 1) + '/' + this.listImages.length;
             } else {
                 this.urlActual = '../images/gallery/' + src;
                 this.imageActual = src;
